@@ -8,9 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}js/bootstrap-3.3.6-dist/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="{{asset('/')}}js/font-awesome-4.5.0/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('/')}}font-awesome-4.5.0/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/slider.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/mystyle.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/contactstyle.css">
     <link href="https://fonts.googleapis.com/css?family=Gudea" rel="stylesheet">
 </head>
 <body>
@@ -27,7 +28,7 @@
             <li>Give us a call : +66666666 </li>
         </ul>
         <ul class="logreg">
-            <li><a href="#">Login </a> </li>
+            <li><a href="/login">Login </a> </li>
             <li><a href="#"><span class="register">Register</span></a></li>
         </ul>
     </div>
@@ -37,7 +38,10 @@
 <!--_______________________________________ Carousel__________________________________ -->
     @yield("slider")
 <!-- ____________________Featured Section ______________________________-->
-    @yield("content")
+    <div id="wrapper">
+        @yield("content")
+    </div>
+
 
     @include("components.footer")
 

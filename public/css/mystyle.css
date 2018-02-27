@@ -8,17 +8,25 @@
  Template: GARAGE
  */
 
-
+body{
+	font-family: 'Gudea', sans-serif;
+}
 .allcontain{
 	max-width: 1366px;
 	margin-left: auto;
 	margin-right: auto;
-	font-family: 'Gudea', sans-serif;
+
+}
+#wrapper{
+	width: 100%;
+	min-height: 300px;
+	padding-bottom: 50px;
+	border-bottom: 2px solid #C59E47;
 }
 .header{
 	background-color: #191919;
-	font-family: 'Gudea', sans-serif;
-	
+
+
 }
 .header .container{
 	padding: 0px;
@@ -29,7 +37,7 @@ list-style-type: none;
 display: inline-block;
 margin: 0px;
 padding-left: 11.2%;
- 
+
 }
 .socialicon>li{
 float: left;
@@ -45,13 +53,13 @@ text-decoration: none;
 	color: #C59E47;
 
 }
- 
+
 .givusacall{
 	list-style-type: none;
 	display: inline-block;
 	letter-spacing: 1px;
-	font-family: 'Gudea', sans-serif;
-	font-size: 12.7px;	
+
+	font-size: 12.7px;
 	color: #E7E7E7;
 	margin-bottom: 0px;
 	padding-left: 26.1%;
@@ -62,7 +70,7 @@ text-decoration: none;
  .logreg{
  	list-style-type: none;
  	display: inline-block;
- 	font-family: 'Gudea', sans-serif;
+
 	font-size: 9pt;
 	color: #E7E7E7;
 	margin-bottom: 0px;
@@ -120,7 +128,7 @@ padding-left: 5%;
 }
 
 /*----------------------End Header --------------------*/
- 
+
 .logo{
 	position: absolute;
 	float: left;
@@ -143,14 +151,14 @@ padding-left: 5%;
 #navbarontop{
 	padding-left: 312px;
 	padding-top: 17px;
-	height:69px; 
+	height:69px;
 }
 /*@font-face {*/
   /*font-family: "BebasNeue Regular";*/
     /*src: url(../fonts/BebasNeue-Regular.otf) format("truetype");*/
 /*}*/
   #navbarontop > li > a {
-  	font-family: 'Gudea', sans-serif;
+
   	font-size: 17px;
   	color: #313943;
     padding-top: 5px;
@@ -167,13 +175,13 @@ padding-left: 5%;
   	background: none!important;
   	border-bottom: 2px solid #C59E47;
   }
- 
+
 
  #navbarontop>button{
  	background: none;
  	background-color: none;
  	border: 2px solid #C59E47;
- 	font-family: 'Gudea', sans-serif;
+
  	margin-left: 60px;
   	font-size: 16.99px;
   	color: #313943;
@@ -207,10 +215,10 @@ padding-left: 5%;
 }
 #navbarontop a:focus {
   outline: none;
-  border-bottom: 2px solid #C59E47; 
+  border-bottom: 2px solid #C59E47;
 }
 .navbar-default .navbar-nav .open .dropdown-menu > li > a {
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 13pt;
 	color: #000;
 	background-color: rgba(255,255,255,.5);
@@ -249,7 +257,7 @@ padding-left: 5%;
 }
 #navbarontop{
 	 padding-left: 0px;
-	padding-top: 26px; 
+	padding-top: 26px;
 	height: 250px;
 }
 #navbarontop>li>a{
@@ -261,7 +269,7 @@ padding-left: 5%;
 }
  #navbarontop>button{
  	margin-left:50px;
- 
+
  }
 .navbar-default .navbar-nav .open .dropdowncostume > li > a {
 	text-align: left;
@@ -280,7 +288,7 @@ float: right;
 }
  #navbarontop>button{
  	margin-left:50px;
- 
+
  }
 .logo{
 	position: absolute;
@@ -294,7 +302,7 @@ float: right;
 }
 #navbarontop{
 	 padding-left: 0px;
-	padding-top: 40px; 
+	padding-top: 40px;
 	height: 250px;
 }
 #navbarontop>li>a{
@@ -345,7 +353,7 @@ float: right;
 }
 .carousel-caption>h2{
 	text-align: left;
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 25.12pt;
 	text-shadow: 0 0px 0px rgba(0, 0, 0, .0);
 
@@ -355,7 +363,7 @@ float: right;
 	/*src:url(../source/fonts/OpenSans-Regular.ttf) format("truetype");*/
 /*}*/
 .carousel-caption>h2>p{
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 15.88pt;
 }
 .carousel-caption {
@@ -373,12 +381,12 @@ float: right;
     top: 15%;
 
 }
- 
+
 .carousel-caption>p{
 font-size: 10pt;
-}	
 }
- 
+}
+
 
 /* -----------------------------Second Navbar ---------------------------------------*/
 .downicon{
@@ -392,20 +400,20 @@ font-size: 10pt;
  	width: 100%;
  	margin: 0px;
  	border-radius: 0px;
- 
- 
+
+
 }
 #navbarmidle{
 		padding-left: 6.6%;
 		padding-bottom: 26px;
 		width: 100%;
- 
+
 }
 .searchtxt{
 	max-width: 1349px;
 }
 .searchtxt>h1{
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 22pt;
 	color: #fff;
 	margin-top: 14px;
@@ -437,7 +445,7 @@ font-size: 10pt;
 	margin-right: 9px;
 }
 .navbarborder>li>a{
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 13pt;
 	color: #fff !important;
 	background-color: none;
@@ -481,30 +489,30 @@ font-size: 10pt;
 }
 .searchform::-webkit-input-placeholder {
     color: #fff;
-	font-family: 'Gudea', sans-serif;
+
     font-size:13pt;
     box-shadow: 0px;
- 
+
 
 }
 .searchform::-moz-placeholder {
     /* FF 19+ */
     color: #fff;
-	font-family: 'Gudea', sans-serif;
+
     font-size: 13pt;
     box-shadow: 0px;
- 
+
 
 }
 .priceslider{
-	font-family: 'Gudea', sans-serif;
+
 	background-color: none;
 	background: none;
 	border: none;
 	color: #fff;
 }
 .slidertxt{
-	font-family: 'Gudea', sans-serif;
+
 	color: #fff;
 }
 .searchnav{
@@ -522,7 +530,7 @@ font-size: 10pt;
 	border-radius: 0px;
 }
 
- 
+
 
 @media only screen and (min-width: 1366px){
 	.li-category{
@@ -547,20 +555,20 @@ font-size: 10pt;
 		position: relative;
 		background: rgb(248,199,45);
 		top:0px;
- 
- 
+
+
 }
- 
+
 .searchtxt>h1{
 	font-size: 18pt;
- 
- 
+
+
 	padding-left: 0px;
 
 }
 .navbarborder>li{
 	padding-right: 9px;
- 
+
 }
 .searchform{
 	padding-right: 10px;
@@ -570,8 +578,8 @@ font-size: 10pt;
 }
 .searchformmargin{
 	margin-bottom: 20px;
- 
- 
+
+
 }
 .searchbutton{
 	margin-right: 0px;
@@ -585,7 +593,7 @@ font-size: 10pt;
 		padding-right: 0px;
 	}
 }
- 
+
 @media screen and (min-width:768px)and (max-width: 1064px){
  #navbarmidle{
  	max-width: 671px;
@@ -597,7 +605,7 @@ padding-left: 0px;
  }
 .navbarborder{
 	width: 520px;
-}	
+}
 	 #amount{
 	 	width: 100px;
 	 	font-size: 10px;
@@ -647,7 +655,7 @@ padding-left: 0px;
 }
 .navbarborder>li{
 	margin-right: 0px;
-}	
+}
 	.li-category{
 		width: 100%;
 	}
@@ -694,7 +702,7 @@ padding-left: 0px;
  	position: absolute;
  	left: -200px;
  	top:-20px;
- 	font-family: 'Gudea', sans-serif;
+
 	font-size: 22pt;
 	color: #fff;
 
@@ -713,7 +721,7 @@ font-weight: bold;
 .searchform::-moz-placeholder {
     /* FF 19+ */
 font-weight: bold;
- 
+
 
 }
 .searchformmargin{
@@ -725,14 +733,14 @@ font-weight: bold;
 
 }
 
- 
+
 /*   ---------------------------   fetured cars   ---------------------------------    */
 /*@font-face{*/
 	/*font-family: "OpenSans-Light";*/
 	/*src: url(../source/fonts/OpenSans-Light.ttf) format("truetype");*/
 /*}*/
 .feturedsection>h1{
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 41px;
 	padding-top: 46px;
 	padding-bottom: 50px;
@@ -745,7 +753,7 @@ font-weight: bold;
 }
 .bdots{
 	padding-right: 40px;
-} 
+}
 .row{
 	padding: 0px;
 	margin: 0px;
@@ -758,11 +766,11 @@ font-weight: bold;
 	font-size: 15pt;
 	padding-top: 20px;
 	padding-bottom: 20px;
- 
+
 }
 .bdots{
 	padding-right: 15px;
-} 
+}
 .carstxt{
 	padding-left: 20px;
 	padding-right: 15px;
@@ -778,7 +786,7 @@ font-weight: bold;
 .carstxt{
 	padding-left: 20px;
 	padding-right: 20px;
-} 
+}
 }
 
 /* -----------------------Featured Cars--------------------------------------------------------*/
@@ -786,13 +794,13 @@ font-weight: bold;
 	max-width:46.3%;
 }
 .img1colon>img{
- 
+
 	width: 100%;
-  
+
 }
 .costumrow{
 	border-top: 1px solid #BABABA;
-	border-bottom: 1px solid #BABABA;	
+	border-bottom: 1px solid #BABABA;
 }
 .txt1colon{
 	width: 53.7%;
@@ -802,13 +810,13 @@ font-weight: bold;
 	height: auto;
 	border: 1px solid #C59E47;
 	margin-top: 7%;
- 
+
 	margin-right: auto;
 	margin-left: auto;
- 
+
 }
 .featurecontant>h1{
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 19.8px;
 	text-align: center;
 	color: #5B5B5B;
@@ -817,13 +825,13 @@ font-weight: bold;
 
 }
 .featurecontant>p{
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 11.44px;
 	text-align: center;
 	color: #5B5B5B;
 }
 .featurecontant>h2{
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 12.41pt;
 	color: #020243;
 	text-align: center;
@@ -834,7 +842,7 @@ font-weight: bold;
 .featurecontant>button{
 	background: #020243;
 	border: 1px solid #020243;
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 19px;
 	color:#fff;
 	letter-spacing: 5px;
@@ -852,8 +860,8 @@ font-weight: bold;
 	border: 1px solid #020243;
 	background: none;
 	color: #020243;
-} 
- 
+}
+
 
 .img2colon{
 	padding: 0px!important;
@@ -875,12 +883,12 @@ font-weight: bold;
 }
 #readmore>h1{
 	text-align: center;
-	font-family: 'Gudea', sans-serif;
+
 	color: #5B5B5B;
 	font-size: 19.8px;
 }
 #readmore>p{
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 11.44px;
 	text-align: center;
 	color: #5B5B5B;
@@ -890,7 +898,7 @@ font-weight: bold;
 #readmore>button{
 	background: none;
 	border: 1px solid #020243;
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 19px;
 	color:#020243;
 	letter-spacing: 5px;
@@ -906,8 +914,8 @@ font-weight: bold;
 	-moz-transition: all .2s ease-in;
     -o-transition: all .2s ease-in;
     -webkit-transition: all .2s ease-in;
-    transition: all .2s ease-in; 
-} 
+    transition: all .2s ease-in;
+}
 #readmore2{
 	overflow-y: auto;
 	position: absolute;
@@ -919,12 +927,12 @@ font-weight: bold;
 }
 #readmore2>h1{
 	text-align: center;
-	font-family: 'Gudea', sans-serif;
+
 	color: #5B5B5B;
 	font-size: 19.8px;
 }
 #readmore2>p{
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 11.44px;
 	text-align: center;
 	color: #5B5B5B;
@@ -934,7 +942,7 @@ font-weight: bold;
 #readmore2>button{
 	background: none;
 	border: 1px solid #020243;
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 19px;
 	color:#020243;
 	letter-spacing: 5px;
@@ -950,7 +958,7 @@ font-weight: bold;
 	-moz-transition: all .2s ease-in;
     -o-transition: all .2s ease-in;
     -webkit-transition: all .2s ease-in;
-    transition: all .2s ease-in; 
+    transition: all .2s ease-in;
 }
 
 @media screen and (max-width: 1198px){
@@ -960,8 +968,8 @@ margin-right:auto;
 margin-left: auto;
 
 }
- 
- 
+
+
 .costumrow{
 	border-top: 0px solid #BABABA;
 	border-bottom: 0px solid #BABABA;
@@ -969,12 +977,12 @@ margin-left: auto;
 .colborder1{
 border-top: 1px solid #BABABA;
 border-left: 1px solid #BABABA;
-border-right:1px solid #BABABA; 
+border-right:1px solid #BABABA;
 border-bottom: 1px solid #BABABA;
 }
 .colborder2{
 border-left: 1px solid #BABABA;
-border-right:1px solid #BABABA; 
+border-right:1px solid #BABABA;
 border-bottom: 1px solid #BABABA;
 }
 .costumcol{
@@ -988,7 +996,7 @@ margin-left: auto;
 .colborder1{
  border-top: 0px solid #BABABA;
  border-left:0px solid #BABABA;
- border-right:0px solid #BABABA; 
+ border-right:0px solid #BABABA;
  border-bottom: 0px;
 }
 .img1colon>img{
@@ -1007,7 +1015,7 @@ border:0px solid #BABABA;
  margin-left: 3px;
 }
 .featurecontant{
- 
+
 width: 100%;
 }
 .costumcol{
@@ -1029,7 +1037,7 @@ margin-left: auto;
 	 max-width: 100%;
 }
 .latestcars>h1{
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 41px;
 	letter-spacing: 10px;
 	padding-top: 66px;
@@ -1037,16 +1045,16 @@ margin-left: auto;
 	color: #020243;
 }
 .sortby{
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 16px;
 	color: #262626;
 }
 .latestlist{
 	color: #6D6D6D;
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 14px;
 	color: #262626;
- 
+
 }
 .latest-navleft{
 	width: 752px;
@@ -1061,11 +1069,11 @@ margin-left: auto;
 }
 .latest-navleft>li>a{
 	color: #6D6D6D;
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 14.8px;
 	border: 0px;
 	padding-top: 0px;
- 
+
 }
 .latest-navleft > li > a:hover,
 .latest-navleft > li > a:focus {
@@ -1088,13 +1096,13 @@ margin-left: auto;
 	background: none;
 	background-color: none;
 	border: 0px;
-	 
+
 }
 @media screen and (min-width: 1366px){
 .latest-navleft{
 	width: 810px;
 
-}	
+}
 }
 @media screen and (max-width: 767px){
 .latestcars>h1{
@@ -1103,7 +1111,7 @@ margin-left: auto;
 	padding-top: 20px;
 	margin-top: 0px;
 	padding-bottom: 40px;
-}	
+}
 .latest-navleft{
 	padding-bottom: 0px;
 	padding-bottom: 0px;
@@ -1116,9 +1124,9 @@ margin-left: auto;
 .latestcars{
 	padding-bottom: 0px!important;
 }
- 
- 
- 
+
+
+
  .li-sortby{
  	padding-bottom: 20px;
  }
@@ -1146,7 +1154,7 @@ font-weight: bold;
 }
 .latestlist{
 	font-size: 12px;
- 
+
 }
 .latest-navleft>li>a{
 padding-left: 0px;
@@ -1219,7 +1227,7 @@ padding-left: 0px;
 .simpletxt>button{
 	background: none;
 	border: 1px solid #fff;
-	font-family: 'Gudea', sans-serif;
+
 	color: #fff;
 	margin-bottom: 14px;
 }
@@ -1227,7 +1235,7 @@ padding-left: 0px;
 	padding-bottom: 42px;
 }
 .wishtxt .paragraph1{
-	font-family: 'Gudea', sans-serif;
+
 	font-size:11.32px;
 	color: #fff;
 	float: left;
@@ -1235,7 +1243,7 @@ padding-left: 0px;
 
 }
 .wishtxt .paragraph2{
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 11.32px;
 	color: #fff;
 	float: right;
@@ -1291,7 +1299,7 @@ padding-left: 0px;
   /*src: url(../source/fonts/OpenSans-Bold.ttf) format("truetype");*/
 /*}*/
 .leftside>h1{
-	font-family: 'Gudea', sans-serif;
+
 	top:39%;
 	left: 13.2%;
 	position: absolute;
@@ -1302,7 +1310,7 @@ padding-left: 0px;
 }
 .leftside>p{
 	position: absolute;
-	font-family: 'Gudea', sans-serif;
+
 	top:47.5%;
 	left: 13.2%;
 	font-size: 20px;
@@ -1325,7 +1333,7 @@ padding-left: 0px;
 	position: absolute;
 	top:34%;
 	left:25%;
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 26.8px;
 	color:#fff;
 	background: none;
@@ -1333,7 +1341,7 @@ padding-left: 0px;
 	border-top: none;
 	border-left: none;
 	border-right:none;
-	border-bottom: 1px solid #fff;	
+	border-bottom: 1px solid #fff;
 	border-radius: 0;
 	width: 53%;
 	padding: 0px;
@@ -1370,7 +1378,7 @@ padding-left: 0px;
 	z-index: 99;
 	background: none;
 	border: 1px solid #fff;
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 31.5px;
 	color: #fff;
 	letter-spacing: 11px;
@@ -1452,7 +1460,7 @@ left: 0%;
 		letter-spacing: 3px;
 	}
 }
-/*-------------------------------------End Newsletter Section ----------------*/	
+/*-------------------------------------End Newsletter Section ----------------*/
 /*-------------------------------------Bottom Menu -----------------------------------------------*/
  .bottommenu{
  	position: relative;
@@ -1472,7 +1480,7 @@ left: 0%;
  	 padding-top: 49px;
  }
  .bottommenu>ul>li>a{
-	 font-family: 'Gudea', sans-serif;
+
  	font-size: 17px;
  	letter-spacing: 4px;
  	color: #191919;
@@ -1481,7 +1489,7 @@ left: 0%;
   background-color: none;
   background: none;
   border: none;
-	  font-family: 'Gudea', sans-serif;
+
  	font-size: 17px;
  	letter-spacing: 4px;
  	color: #191919;
@@ -1499,13 +1507,13 @@ left: 0%;
 }
   .bottommenu>p{
   	text-align: center;
-	  font-family: 'Gudea', sans-serif;
+
   	font-size: 13px;
   	color: #707070;
   	padding-top: 105px;
   }
  .bottommenu>img{
- 	padding-left:50%; 
+ 	padding-left:50%;
  	margin-left: -20px;
  	margin-bottom: 35px;
  	margin-top: 54px;
@@ -1544,20 +1552,20 @@ left: 0%;
 
   	}
   	.bottomlinks>li>a{
-  		
+
 
   	}
   	.bottomlinks>li{
   	float: none;
   text-align: center;
-  		 
+
   	}
   	.bottommenu>img{
   		margin-bottom: 15px;
   		margin-top: 15px;
   	}
   	 .dotlogo{
- 
+
  	padding-right: 15px;
  	padding-left: 15px;
  }
@@ -1575,20 +1583,20 @@ left: 0%;
 
   	}
   	.bottomlinks>li>a{
-  		
+
 
   	}
   	.bottomlinks>li{
   	float: none;
   	text-align: center;
-  		 
+
   	}
   	.bottommenu>img{
   		margin-bottom: 15px;
   		margin-top: 15px;
   	}
   	 .dotlogo{
- 
+
  	padding-right: 15px;
  	padding-left: 15px;
  }
@@ -1599,20 +1607,20 @@ left: 0%;
  	float: none;
  }
   	.dotlogo{
- 
+
  	padding-right: 30px;
  	padding-left: 30px;
- }	
+ }
    	.bottomlinks>li{
   	float: none;
   	text-align: center;
-  		 
+
   	}
   .bottommenu{
   	top:0px;
   }
  }
- 
+
 
 
 
@@ -1624,7 +1632,7 @@ left: 0%;
 .footer{
 	background-color: #191919;
 	color: #fff;
-	font-family: 'Gudea', sans-serif;
+
 	font-size: 12px;
 	width: 100%;
 	height: 30px;
