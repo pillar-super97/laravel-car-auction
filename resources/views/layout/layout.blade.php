@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Scarica gratis GARAGE Template html/css - Web Domus Italia - Web Agency </title>
     <meta name="description" content="Scarica gratis il nostro Template HTML/CSS GARAGE. Se avete bisogno di un design per il vostro sito web GARAGE può fare per voi. Web Domus Italia">
+    <meta name="_token" content="{!! csrf_token() !!}" />
     <meta name="author" content="Web Domus Italia">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,8 +29,12 @@
             <li>Give us a call : +66666666 </li>
         </ul>
         <ul class="logreg">
-            <li><a href="/login">Login </a> </li>
-            <li><a href="#"><span class="register">Register</span></a></li>
+            @if(session()->has('user'))
+                <li><a href="/logout">Logout</a></li>
+                @else
+                    <li><a href="/login">Login </a> </li>
+                    <li><a href="#"><span class="register">Register</span></a></li>
+            @endif
         </ul>
     </div>
     <!-- Navbar Up -->
@@ -46,9 +51,10 @@
     @include("components.footer")
 
 <script type="text/javascript" src="{{asset('/')}}js/bootstrap-3.3.6-dist/js/jquery.js"></script>
+<script type="text/javascript" src="{{asset('/')}}js/jquery-ui.js"></script>
 <script type="text/javascript" src="{{asset('/')}}js/isotope.js"></script>
 <script type="text/javascript" src="{{asset('/')}}js/myscript.js"></script>
-<script type="text/javascript" src="{{asset('/')}}js/bootstrap-3.3.6-dist/js/jquery.1.11.js"></script>
 <script type="text/javascript" src="{{asset('/')}}js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="{{asset('/')}}js/auth.js"></script>
 </body>
 </html>

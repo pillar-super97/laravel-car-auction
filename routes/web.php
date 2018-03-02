@@ -16,3 +16,6 @@ Route::get('/', function () {
 });
 
 Route::get('/login', 'AuthenticationController@render');
+
+Route::post('/login', 'AuthenticationController@login');
+Route::get('/logout', 'AuthenticationController@logout');
