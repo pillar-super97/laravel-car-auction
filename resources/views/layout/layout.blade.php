@@ -11,6 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}js/bootstrap-3.3.6-dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}font-awesome-4.5.0/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/slider.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/style.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/mystyle.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/contactstyle.css">
     <link href="https://fonts.googleapis.com/css?family=Gudea" rel="stylesheet">
@@ -18,25 +19,7 @@
 <body>
 <!-- Header -->
 <div class="allcontain">
-    <div class="header">
-        <ul class="socialicon">
-            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-        </ul>
-        <ul class="givusacall">
-            <li>Give us a call : +66666666 </li>
-        </ul>
-        <ul class="logreg">
-            @if(session()->has('user'))
-                <li><a href="/logout">Logout</a></li>
-                @else
-                    <li><a href="/login">Login </a> </li>
-                    <li><a href="/register"><span class="register">Register</span></a></li>
-            @endif
-        </ul>
-    </div>
+    @include("components.top")
     <!-- Navbar Up -->
     @include("components.nav")
 </div>

@@ -1,22 +1,43 @@
 $(document).ready( () => {
     $('.btn-Login').click( () => {
+
         let username = $('.tbUsername').val();
         let password = $('.tbPassword').val();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-            type: 'post',
-            url: '/login',
-            data:JSON.stringify({username, password}),
-            success(data){
-                alert(data);
-            }
-        })
+
+        const regUsername = /^[A-z][A-Za-z0-9\_]{3,20}$/;
+        const regPassword = /^[A-z][A-Za-z0-9\_]{3,20}$/;
+        let errors = false;
+
+        if(!regUsername.test(username)){
+            $('.username.error').text("Username is invalid").css('color', 'red');
+            errors = true
+        }
+        else {
+            $('.username.error').text("")
+        }
+        if(!regPassword.test(password)){
+            $('.password.error').text("Password is invalid").css('color', 'red');
+            errors = true
+        }
+        else {
+            $('.password.error').text("")
+        }
+
+        if(!errors)
+            $('#loginForm').submit();
+    })
+
+    $('.btnRegister').click( () => {
+        let firstName = $('.tbFirstName').val()
+        let lastName = $('.tbLastName').val()
+        let username = $('.tbUsername').val()
+        let password = $('.tbPassword').val()
+        let retype = $('.tbRetype').val()
+        let email = $('.tbEmail').val()
+
+        const regFirstName = /^[A-Z][a-z]{3,20}(\s[A-z][a-z]{1,20}){0,2}$/;
+        const regUsername = /^[A-z][A-Za-z0-9\_]{3,20}$/;
+        const regPassword = /^[A-z][A-z\!\?\_\*\-\#\$\%\^\&\.\,0-9]{3,20}$/;
     })
 })
 
-// AJAX Requests & Validation
-// In this example, we used a traditional form to send data to the application. However, many applications use AJAX requests. When using the validate method during an AJAX request, Laravel will not generate a redirect response. Instead, Laravel generates a JSON response containing all of the validation errors. This JSON response will be sent with a 422 HTTP status code.

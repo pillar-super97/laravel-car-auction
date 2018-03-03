@@ -12,28 +12,30 @@
     </div>
     <div class="collapse navbar-collapse" id="upmenu">
         <ul class="nav navbar-nav" id="navbarontop">
-            <li class="active"><a href="#">HOME</a> </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle"	data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">CATEGORIES <span class="caret"></span></a>
-                <ul class="dropdown-menu dropdowncostume">
-                    <li><a href="#">Sport</a></li>
-                    <li><a href="#">Old</a></li>
-                    <li><a href="#">New</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">DEALERS <span class="caret"></span></a>
-                <ul class="dropdown-menu dropdowncostume">
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="3">3</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="contact.html">CONTACT</a>
-
-            </li>
-            <button><span class="postnewcar">POST NEW CAR</span></button>
+            @if(session()->has('links'))
+                @foreach(session()->get('links')[0] as $link)
+                    @if($link->dropdown == 0 && $link->name != 'Login' && $link->name != 'Logout' && $link->name != 'Register')
+                        @if(session()->has('user') && $link->name == 'Admin panel' && session()->get('user')[0]->role == 'admin')
+                            <li><a href="{{$link->href}}">{{$link->name}}</a> </li>
+                        @endif
+                        @if($link->name != 'Admin panel')
+                            <li><a href="{{$link->href}}">{{$link->name}}</a> </li>
+                        @endif
+                    @endif
+                @endforeach
+                @if(session()->has('user'))
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle"	data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My profile<span class="caret"></span></a>
+                        <ul class="dropdown-menu dropdowncostume">
+                            @foreach(session()->get('links')[0] as $link)
+                                @if($link->dropdown == 1)
+                                    <li><a href="{{$link->href}}">{{$link->name}}</a> </li>
+                                @endif
+                            @endforeach
+                        </ul>
+                    </li>
+                @endif
+            @endif
         </ul>
     </div>
 </nav>
