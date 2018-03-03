@@ -15,8 +15,11 @@ use Illuminate\Http\Request;
 class AuthenticationController
 {
 
-    public function render(){
+    public function renderLogin(){
         return view("pages.login");
+    }
+    public function renderRegister(){
+        return view('pages.register');
     }
 
     public function login(Request $req){
@@ -44,6 +47,39 @@ class AuthenticationController
         else{
             return redirect('/login')->with('error','Niste registrovani!');
         }
+    }
+
+    public function register(Request $req){
+        $req->validate([
+            'tbFirstName' => ['required', 'alpha'],
+            'tbLastName' => ['required', 'alpha'],
+            'tbUsername' => ['required'],
+            'tbPassword' => ['required'],
+            'tbEmail' => ['required'],
+        ],
+            [
+                'required' => 'Field :attribute is required'
+            ]);
+
+        $name = $req->get('tbFirstName');
+        $last_name = $req->get('tbLastName');
+        $username = $req->get('tbUsername');
+        $password = $req->get('tbPassword');
+        $email = $req->get('tbEmail');
+
+        $user = new User();
+        $user->setFirstName($name);
+        $user->setLastName($last_name);
+        $user->setUsername($username);
+        $user->setPassword($password);
+        $user->setEmail($email);
+
+        $id = $user->insertNewUser();
+        if (!empty($id))
+            return redirect()->back()->with('msg', 'Uspesno ste se registrovali');
+        else
+            return redirect()->back()->with('msg', 'Registracija nije uspela');
+
     }
 
     public function logout(Request $request){

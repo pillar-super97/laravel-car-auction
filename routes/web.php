@@ -15,7 +15,9 @@ Route::get('/', function () {
     return view('pages.home');
 });
 
-Route::get('/login', 'AuthenticationController@render');
+Route::get('/login', 'AuthenticationController@renderLogin');
 
 Route::post('/login', 'AuthenticationController@login');
 Route::get('/logout', 'AuthenticationController@logout');
+Route::get('/register', 'AuthenticationController@renderRegister');
+Route::post('/register', 'AuthenticationController@register');

@@ -111,7 +111,18 @@ class User
     }
 
     public function insertNewUser(){
-
+        $id = DB::table('Users')
+            ->insertGetId(
+                [
+                    'username' => $this->username,
+                    'password' => md5($this->password),
+                    'first_name' => $this->first_name,
+                    'last_name' => $this->last_name,
+                    'email' => $this->email,
+                    'role' => 'user'
+                ]
+            );
+        return $id;
     }
 
     public function loginUser(){
