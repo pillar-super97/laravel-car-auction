@@ -24,7 +24,7 @@ class AuthenticationController
 
     public function login(Request $req){
         $req->validate([
-            'tbUsername' => ['required', 'alpha'],
+            'tbUsername' => ['required'],
             'tbPassword' => ['required']
         ],
             [

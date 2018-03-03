@@ -6,7 +6,7 @@
         <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
     </ul>
     <ul class="givusacall">
-        <li>Give us a call : +66666666 </li>
+        <li>Give us a call : +12345687 </li>
     </ul>
     <ul class="logreg">
         @if(session()->has('links'))
