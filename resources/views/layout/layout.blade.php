@@ -39,5 +39,6 @@
 <script type="text/javascript" src="{{asset('/')}}js/myscript.js"></script>
 <script type="text/javascript" src="{{asset('/')}}js/bootstrap-3.3.6-dist/js/bootstrap.js"></script>
 <script type="text/javascript" src="{{asset('/')}}js/auth.js"></script>
+<script type="text/javascript" src="{{asset('/')}}js/cars.js"></script>
 </body>
 </html>

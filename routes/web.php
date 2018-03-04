@@ -23,4 +23,6 @@ Route::post('checkUsername', 'AuthenticationController@checkUsername');
 
 Route::group(['middleware' => 'checkAuth'], function (){
     Route::get('/postcar', 'UploadCarsController@render');
+    Route::post('/getmodel', 'UploadCarsController@getModel');
+    Route::post('/postcar', 'UploadCarsController@uploadCar');
 });
