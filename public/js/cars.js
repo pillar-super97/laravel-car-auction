@@ -147,18 +147,18 @@ $(document).ready( () => {
         }
 
         if(!errors){
-            // if(brand === 'other'){
-            //     $('#ddlBrand').val(null);
-            // }
-            // else {
-            //     $('.tbBrand').val(null);
-            // }
-            // if($('#ddlModel').hasClass('hideInput')){
-            //     $('#ddlModel').val(null)
-            // }
-            // else{
-            //     $('.tbModel').val(null)
-            // }
+            if(isNaN(brand)){
+                $('#ddlBrand').prop('disabled', true);
+            }
+            else {
+                $('.tbBrand').prop('disabled', true);
+            }
+            if($('#ddlModel').hasClass('hideInput')){
+                $('#ddlModel').prop('disabled', true);
+            }
+            else{
+                $('.tbModel').prop('disabled', true);
+            }
             $('#uploadCar').submit();
         }
     })

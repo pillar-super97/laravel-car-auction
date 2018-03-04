@@ -32,4 +32,41 @@ class Cars
             ->get();
         return $models;
     }
+
+    public static function insertNewBrand($brand){
+        $id = DB::table("Brand")
+            ->insertGetId(
+                [
+                    'name' => $brand
+                ]
+            );
+        return $id;
+    }
+    public static function insertNewModel($brand_id, $model){
+        $id = DB::table("Model")
+            ->insertGetId(
+                [
+                    'name' => $model,
+                    'brand_id' => $brand_id
+                ]
+            );
+        return $id;
+    }
+
+    public static function insertNewCar($brand, $model, $year, $km, $price, $desc, $photo, $user_id){
+        $id = DB::table("Cars")
+            ->insertGetId(
+                [
+                    'brand_id' => $brand,
+                    'model_id' => $model,
+                    'year' => $year,
+                    'km_passed' => $km,
+                    'price' => $price,
+                    'description' => $desc,
+                    'photo' => $photo,
+                    'user_id' => $user_id
+                ]
+            );
+        return $id;
+    }
 }
