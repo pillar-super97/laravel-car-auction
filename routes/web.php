@@ -19,3 +19,8 @@ Route::post('/login', 'AuthenticationController@login');
 Route::get('/logout', 'AuthenticationController@logout');
 Route::get('/register', 'AuthenticationController@renderRegister');
 Route::post('/register', 'AuthenticationController@register');
+Route::post('checkUsername', 'AuthenticationController@checkUsername');
+
+Route::group(['middleware' => 'checkAuth'], function (){
+    Route::get('/postcar', 'UploadCarsController@render');
+});

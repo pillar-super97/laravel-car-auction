@@ -136,6 +136,13 @@ class User
         return $res;
     }
 
+    public static function checkUsernameAvb($username){
+        $res = DB::table('Users')
+            ->where('username', $username)
+            ->first();
+        return $res;
+    }
+
 
 
 }

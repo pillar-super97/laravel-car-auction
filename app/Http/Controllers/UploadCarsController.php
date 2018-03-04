@@ -11,5 +11,7 @@ namespace App\Http\Controllers;
 
 class UploadCarsController
 {
-
+    public function render(){
+        return view('pages.postcar');
+    }
 }

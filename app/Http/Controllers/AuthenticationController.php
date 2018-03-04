@@ -82,6 +82,23 @@ class AuthenticationController
 
     }
 
+    public function checkUsername(Request $request){
+        if($request->ajax()){
+            $username = $request->get('username');
+            $avb = User::checkUsernameAvb($username);
+            if(empty($avb)){
+                return response()->json([
+                    'message' => 'free',
+                ]);
+            }
+            else{
+                return response()->json([
+                    'message' => 'taken',
+                ]);
+            }
+        }
+    }
+
     public function logout(Request $request){
         $request->session()->forget('user');
         $request->session()->flush();
