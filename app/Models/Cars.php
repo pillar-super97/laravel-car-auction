@@ -21,6 +21,16 @@ class Cars
 
     }
 
+    public static function getAllCarsForUser($id_u){
+        $cars = DB::table("Cars")
+            ->join("Brand", "brand_id", "=", "Brand.id")
+            ->join("Model", "model_id", "=", "Model.id")
+            ->join("Users", "user_id", "=", "Users.id")
+            ->select("Cars.*", "Brand.name as brand", "Model.name as model", "Users.first_name as FirstName", "Users.last_name as LastName")
+            ->get();
+        return $cars;
+    }
+
     public static function getBrand(){
         $brands = DB::table('Brand')->get();
         return $brands;

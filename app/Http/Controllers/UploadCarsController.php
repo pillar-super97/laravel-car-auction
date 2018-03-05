@@ -103,19 +103,19 @@ class UploadCarsController
 
             $res = Cars::insertNewCar($brand, $model, $year, $km, $price, $desc, $folder.$file_name, session()->get('user')[0]->id);
             if(!empty($res))
-                return redirect('/')->with('success','Uspesno ste dodali post i sliku!');
+                return redirect()->back()->with('success','Car uploaded successfully');
         }
         catch(\Illuminate\Database\QueryException $ex){ // greske u upitu
             \Log::error($ex->getMessage());
-            return redirect()->back()->with('error','Greska pri dodavanju posta u bazu!');
+            return redirect()->back()->with('error','Upload failed!');
         }
         catch(\Symfony\Component\HttpFoundation\File\Exception\FileException $ex) { // greske sa fajlom
             \Log::error('Problem sa fajlom!! '.$ex->getMessage());
-            return redirect()->back()->with('error','Greska pri dodavanju slike!');
+            return redirect()->back()->with('error','Upload failed!');
         }
         catch(\ErrorException $ex) {
             \Log::error('Problem sa fajlom!! '.$ex->getMessage());
-            return redirect()->back()->with('error','Desila se greska..');
+            return redirect()->back()->with('error','Upload failed!');
         }
 
     }

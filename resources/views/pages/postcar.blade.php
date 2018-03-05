@@ -67,6 +67,11 @@
                                         {{session('error')}}
                                 </div>
                         @endif
+                        @if(session('success'))
+                                <div class="alert alert-success login error" role="alert">
+                                        {{session('success')}}
+                                </div>
+                        @endif
                 </div>
 
 

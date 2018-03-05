@@ -11,3 +11,81 @@
 .btnUploadCar{
     margin-top: 20px;
 }
+.cars-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex-wrap: wrap;
+    min-height: 500px;
+}
+.cars-wrapper h2{
+    text-align: center;
+}
+.single-car{
+    display: flex;
+    /*flex-direction: row;*/
+    flex: 1 1 100%;
+    margin: 20px;
+    min-height: 300px;
+    border-bottom: 1px solid #C59E47;
+    border-top: 1px solid #C59E47;
+}
+.img-wrapper{
+    flex: 1 1 40%;
+    margin: 20px;
+    overflow: hidden;
+}
+.info-wrapper-wrapper{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 60%;
+}
+.info-wrapper-wrapper h4{
+    text-align: center;
+}
+.info-wrapper{
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 60%;
+    margin: 20px 20px 20px 0px;
+}
+.info-wrapper h4{
+    text-align: center;
+}
+.info-row{
+    margin-left: 10px;
+    font-size: 20px;
+    /*border-bottom: 1px solid #843534;*/
+}
+.img-wrapper img{
+    width: 100%; /* or any custom size */
+    height: 100%;
+    object-fit: contain;
+}
+.car-info{
+    flex: 1 1 50%;
+}
+.car-actions{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 50%;
+}
+.car-actions a{
+    border: 1px solid #C59E47;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    color: black;
+    margin-bottom: 10px;
+}
+.car-actions a:hover{
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #C59E47;
+    text-decoration: none;
+    transition: all 0.5s;
+}
+.hideDates{
+    display: none;
+}
