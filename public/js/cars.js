@@ -163,4 +163,104 @@ $(document).ready( () => {
         }
     })
 
+    $('.btnAddCarToAuction').click( function(e){
+        e.preventDefault();
+        const root = $(this).parent();
+        if(root.find('.car-links').hasClass('hideDates')){
+            root.find('.car-links').removeClass('hideDates')
+            $(this).text('Cancel')
+            root.parent().find('.btnAddCarToRent').addClass('hideDates')
+        }
+        else{
+            root.find('.car-links').addClass('hideDates')
+            $(this).text('Add this car to auction')
+            root.find('.date-errors').text('')
+            root.find('.rent-date.start').val(null);
+            root.find('.rent-date.end').val(null);
+            root.find('.start-price').val(null)
+            root.find('.bid-rate').val(null)
+            root.parent().find('.btnAddCarToRent').removeClass('hideDates')
+        }
+    });
+
+    $('.btnAddCarToRent').click( function(e){
+        e.preventDefault();
+        const root = $(this).parent();
+        if(root.find('.car-links').hasClass('hideDates')){
+            root.find('.car-links').removeClass('hideDates')
+            $(this).text('Cancel')
+            root.parent().find('.btnAddCarToAuction').addClass('hideDates')
+        }
+        else{
+            root.find('.car-links').addClass('hideDates')
+            $(this).text('Add this car to rent')
+            root.find('.date-errors').text('')
+            root.find('.rent-date.start').val(null);
+            root.find('.rent-date.end').val(null);
+            root.find('.rent-price').val(null)
+            root.parent().find('.btnAddCarToAuction').removeClass('hideDates')
+        }
+    });
+
+    $('.SubmitToAuction').click( function (e) {
+        e.preventDefault();
+        const root = $(this).parent().parent()
+        const id = root.find('.btnAddCarToAuction').attr('data-id')
+        const start = root.find('.rent-date.start').val()
+        const end = root.find('.rent-date.end').val()
+        const price = root.find('.start-price').val()
+        const bid = root.find('.bid-rate').val()
+        let errors = false;
+
+        if(start == '' || end == '' || price == '' || price < 1 || bid == '' || bid < 1){
+            errors = true;
+            root.find('.date-errors').text('Please fill out all fields').css({'color':'red'},{'font-weight':'bold'});
+        }
+        else{
+            root.find('.date-errors').text('');
+            if(new Date(start).getTime() < new Date().getTime()){
+                errors = true;
+                root.find('.date-errors').text('Start date can\'t be in past').css({'color':'red'},{'font-weight':'bold'});
+            }
+            if(new Date(end).getTime() < new Date(start).getTime() + 86400000){
+                errors = true
+                root.find('.date-errors').text('Auction must last at least 24 hours').css({'color':'red'},{'font-weight':'bold'});
+            }
+        }
+
+        if(!errors)
+            root.find('.date-errors').text('')
+
+    })
+
+    $('.SubmitToRent').click( function (e) {
+        e.preventDefault();
+        const root = $(this).parent().parent();
+        const id = root.find('.btnAddCarToAuction').attr('data-id');
+        const start = root.find('.rent-date.start').val();
+        const end = root.find('.rent-date.end').val();
+        const price = root.find('.rent-price').val()
+        let errors = false;
+
+        if(start == '' || end == '' || price == '' || price < 1){
+            errors = true;
+            root.find('.date-errors').text('Please fill out all fields').css({'color':'red'},{'font-weight':'bold'});
+        }
+        else{
+            root.find('.date-errors').text('');
+            if(new Date(start).getTime() < new Date().getTime()){
+                errors = true;
+                root.find('.date-errors').text('Start date can\'t be in past').css({'color':'red'},{'font-weight':'bold'});
+            }
+            if(new Date(end).getTime() < new Date(start).getTime() + 86400000){
+                errors = true
+                root.find('.date-errors').text('Auction must last at least 24 hours').css({'color':'red'},{'font-weight':'bold'});
+            }
+        }
+
+        if(!errors)
+            root.find('.date-errors').text('')
+
+    })
+
 });

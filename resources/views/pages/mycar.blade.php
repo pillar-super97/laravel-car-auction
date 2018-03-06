@@ -94,16 +94,55 @@
                             </div>
                             <div class="clear"></div>
                             <div class="car-actions">
-                                <a href="#">Add this car to auction</a>
-                                <div class="auction-start-date hideDates">
-                                    Start date: <input type="datetime-local" class="form-control"><br>
-                                    End date: <input type="datetime-local" class="form-control">
+                                <div class="auction">
+                                    <a href="#" class="btnAddCarToAuction" data-id="{{$car->id}}">Add this car to auction</a>
+                                    <div class="car-links hideDates">
+                                        <table class="dateTable">
+                                            <tr>
+                                                <td>Start date:</td>
+                                                <td><input type="datetime-local" class="form-control rent-date start"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>End date:</td>
+                                                <td><input type="datetime-local" class="form-control rent-date end"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Start price: &euro;</td>
+                                                <td><input type="number" class="form-control start-price"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Bid rate: &euro;</td>
+                                                <td><input type="number" class="form-control bid-rate"></td>
+                                            </tr>
+                                        </table>
+                                        <a href="#" class="SubmitToAuction">Submit to auction</a>
+                                        <span class="date-errors"></span>
+                                    </div>
                                 </div>
-                                <a href="#">Add this car for rent</a>
+                                <div class="rent">
+                                    <a href="#" class="btnAddCarToRent" data-id="{{$car->id}}">Add this car for rent</a>
+                                    <div class="car-links hideDates">
+                                        <table class="dateTable">
+                                            <tr>
+                                                <td>Start date:</td>
+                                                <td><input type="datetime-local" class="form-control rent-date start"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>End date:</td>
+                                                <td><input type="datetime-local" class="form-control rent-date end"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Price per day: &euro;</td>
+                                                <td><input type="number" class="form-control rent-price"></td>
+                                            </tr>
+                                        </table>
+                                        <a href="#" class="SubmitToRent">Submit to rent</a>
+                                        <span class="date-errors"></span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             @endforeach
         @endisset
