@@ -94,52 +94,60 @@
                             </div>
                             <div class="clear"></div>
                             <div class="car-actions">
-                                <div class="auction">
-                                    <a href="#" class="btnAddCarToAuction" data-id="{{$car->id}}">Add this car to auction</a>
-                                    <div class="car-links hideDates">
-                                        <table class="dateTable">
-                                            <tr>
-                                                <td>Start date:</td>
-                                                <td><input type="datetime-local" class="form-control rent-date start"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>End date:</td>
-                                                <td><input type="datetime-local" class="form-control rent-date end"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Start price: &euro;</td>
-                                                <td><input type="number" class="form-control start-price"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Bid rate: &euro;</td>
-                                                <td><input type="number" class="form-control bid-rate"></td>
-                                            </tr>
-                                        </table>
-                                        <a href="#" class="SubmitToAuction">Submit to auction</a>
-                                        <span class="date-errors"></span>
+                                @if(is_null($car->rentedCar) && is_null($car->auctionCar))
+                                    <div class="auction">
+                                        <a href="#" class="btnAddCarToAuction" data-id="{{$car->id}}">Add this car to auction</a>
+                                        <div class="car-links hideDates">
+                                            <table class="dateTable">
+                                                <tr>
+                                                    <td>Start date:</td>
+                                                    <td><input type="datetime-local" class="form-control rent-date start"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>End date:</td>
+                                                    <td><input type="datetime-local" class="form-control rent-date end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Start price: &euro;</td>
+                                                    <td><input type="number" class="form-control start-price"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Bid rate: &euro;</td>
+                                                    <td><input type="number" class="form-control bid-rate"></td>
+                                                </tr>
+                                            </table>
+                                            <a href="#" class="SubmitToAuction">Submit to auction</a>
+                                            <span class="date-errors"></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="rent">
-                                    <a href="#" class="btnAddCarToRent" data-id="{{$car->id}}">Add this car for rent</a>
-                                    <div class="car-links hideDates">
-                                        <table class="dateTable">
-                                            <tr>
-                                                <td>Start date:</td>
-                                                <td><input type="datetime-local" class="form-control rent-date start"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>End date:</td>
-                                                <td><input type="datetime-local" class="form-control rent-date end"></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Price per day: &euro;</td>
-                                                <td><input type="number" class="form-control rent-price"></td>
-                                            </tr>
-                                        </table>
-                                        <a href="#" class="SubmitToRent">Submit to rent</a>
-                                        <span class="date-errors"></span>
+                                    <div class="rent">
+                                        <a href="#" class="btnAddCarToRent" data-id="{{$car->id}}">Add this car for rent</a>
+                                        <div class="car-links hideDates">
+                                            <table class="dateTable">
+                                                <tr>
+                                                    <td>Start date:</td>
+                                                    <td><input type="datetime-local" class="form-control rent-date start"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>End date:</td>
+                                                    <td><input type="datetime-local" class="form-control rent-date end"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Price per day: &euro;</td>
+                                                    <td><input type="number" class="form-control rent-price"></td>
+                                                </tr>
+                                            </table>
+                                            <a href="#" class="SubmitToRent">Submit to rent</a>
+                                            <span class="date-errors"></span>
+                                        </div>
                                     </div>
-                                </div>
+                                @else
+                                    <div class="car-status {{$car->id}}" data-id="{{$car->id}}">
+                                        <h3>This car is currently {{is_null($car->rentedCar) ? "on auction" : "rented"}}</h3>
+                                        <h3>Expire date: <span class="expire-date">{{is_null($car->rentedCar) ? str_replace("T"," ",$car->AuctionEnd) : str_replace("T"," ",$car->RentEnd)}}</span> </h3>
+                                        <h3>Time remaining: <span class="time-remaining"></span></h3>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

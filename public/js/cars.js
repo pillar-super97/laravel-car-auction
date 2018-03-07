@@ -228,15 +228,16 @@ $(document).ready( () => {
             }
         }
 
-        if(!errors)
+        if(!errors){
             root.find('.date-errors').text('')
+        }
 
     })
 
     $('.SubmitToRent').click( function (e) {
         e.preventDefault();
         const root = $(this).parent().parent();
-        const id = root.find('.btnAddCarToAuction').attr('data-id');
+        const id = root.find('.btnAddCarToRent').attr('data-id');
         const start = root.find('.rent-date.start').val();
         const end = root.find('.rent-date.end').val();
         const price = root.find('.rent-price').val()
@@ -258,9 +259,56 @@ $(document).ready( () => {
             }
         }
 
-        if(!errors)
+        if(!errors){
             root.find('.date-errors').text('')
-
+            $.ajax({
+                type: 'post',
+                url: '/ajax/addforrent',
+                data: {id, start, end, price},
+                success(data){
+                    if(data === 'success'){
+                        let html = `<div class="car-status ${id}">
+                                        <h3>This car is currently Rented</h3>
+                                        <h3>Expire date: ${end.replace('T',' ')}</h3>
+                                        <h3>Time remaining: <span class="time-remaining"></span></h3>
+                                    </div>`;
+                        root.parent().html(html);
+                        timer(end, id);
+                    }
+                },
+                error(err){
+                    console.log(err);
+                }
+            })
+        }
     })
 
-});
+    if($('.car-status').length > 0){
+        $('.car-status').each(function () {
+            let expire = $(this).find('.expire-date').text().trim().replace(" ", "T");
+            let id = $(this).attr('data-id');
+            timer(expire, id);
+        })
+    }
+})
+
+
+function timer(exp, id){
+    let expire = new Date(exp).getTime();
+    let now = new Date().getTime();
+    let diff = expire - now;
+
+    let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    console.log();
+    $(`.car-status.${id}`).find('.time-remaining').html(`${days}d, ${hours}:${minutes}:${seconds}`);
+    let a = setTimeout(function () {
+        timer(exp, id);
+    }, 1000);
+    if(diff < 1000){
+        clearTimeout(a)
+    }
+}

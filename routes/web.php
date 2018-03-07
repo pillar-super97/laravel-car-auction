@@ -26,4 +26,9 @@ Route::group(['middleware' => 'checkAuth'], function (){
     Route::post('/getmodel', 'UploadCarsController@getModel');
     Route::post('/postcar', 'UploadCarsController@uploadCar');
     Route::get('/mycars', 'MyCarsController@render');
+    Route::get('/auction', 'MyCarsController@proba');
+});
+
+Route::group(['prefix' => '/ajax'], function (){
+   Route::post('/addforrent', 'MyCarsController@addForRent');
 });
