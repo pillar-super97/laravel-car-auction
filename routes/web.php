@@ -20,6 +20,7 @@ Route::get('/logout', 'AuthenticationController@logout');
 Route::get('/register', 'AuthenticationController@renderRegister');
 Route::post('/register', 'AuthenticationController@register');
 Route::post('checkUsername', 'AuthenticationController@checkUsername');
+Route::get('/rent', 'RentACarController@render');
 
 Route::group(['middleware' => 'checkAuth'], function (){
     Route::get('/postcar', 'UploadCarsController@render');
@@ -31,4 +32,6 @@ Route::group(['middleware' => 'checkAuth'], function (){
 
 Route::group(['prefix' => '/ajax'], function (){
    Route::post('/addforrent', 'MyCarsController@addForRent');
+   Route::post('/removerent', 'MyCarsController@removeRent');
+   Route::post('/rentacar', 'RentACarController@rentACar');
 });

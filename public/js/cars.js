@@ -183,7 +183,26 @@ $(document).ready( () => {
         }
     });
 
-    $('.btnAddCarToRent').click( function(e){
+    $(document).on('click','.btnAddCarToRent',function(e){
+        e.preventDefault();
+        const root = $(this).parent();
+        if(root.find('.car-links').hasClass('hideDates')){
+            root.find('.car-links').removeClass('hideDates')
+            $(this).text('Cancel')
+            root.parent().find('.btnAddCarToAuction').addClass('hideDates')
+        }
+        else{
+            root.find('.car-links').addClass('hideDates')
+            $(this).text('Add this car to rent')
+            root.find('.date-errors').text('')
+            root.find('.rent-date.start').val(null);
+            root.find('.rent-date.end').val(null);
+            root.find('.rent-price').val(null)
+            root.parent().find('.btnAddCarToAuction').removeClass('hideDates')
+        }
+    });
+
+    $(document).on('click','.btnRentCar',function(e){
         e.preventDefault();
         const root = $(this).parent();
         if(root.find('.car-links').hasClass('hideDates')){
@@ -234,29 +253,16 @@ $(document).ready( () => {
 
     })
 
-    $('.SubmitToRent').click( function (e) {
+    $(document).on('click','.SubmitToRent', function (e) {
         e.preventDefault();
         const root = $(this).parent().parent();
         const id = root.find('.btnAddCarToRent').attr('data-id');
-        const start = root.find('.rent-date.start').val();
-        const end = root.find('.rent-date.end').val();
         const price = root.find('.rent-price').val()
         let errors = false;
 
-        if(start == '' || end == '' || price == '' || price < 1){
+        if(price == '' || price < 1){
             errors = true;
-            root.find('.date-errors').text('Please fill out all fields').css({'color':'red'},{'font-weight':'bold'});
-        }
-        else{
-            root.find('.date-errors').text('');
-            if(new Date(start).getTime() < new Date().getTime()){
-                errors = true;
-                root.find('.date-errors').text('Start date can\'t be in past').css({'color':'red'},{'font-weight':'bold'});
-            }
-            if(new Date(end).getTime() < new Date(start).getTime() + 86400000){
-                errors = true
-                root.find('.date-errors').text('Auction must last at least 24 hours').css({'color':'red'},{'font-weight':'bold'});
-            }
+            root.find('.date-errors').text('Please insert positive number').css({'color':'red'},{'font-weight':'bold'});
         }
 
         if(!errors){
@@ -264,15 +270,163 @@ $(document).ready( () => {
             $.ajax({
                 type: 'post',
                 url: '/ajax/addforrent',
-                data: {id, start, end, price},
+                data: {id, price},
                 success(data){
                     if(data === 'success'){
-                        let html = `<div class="car-status ${id}">
-                                        <h3>This car is currently Rented</h3>
-                                        <h3>Expire date: ${end.replace('T',' ')}</h3>
-                                        <h3>Time remaining: <span class="time-remaining"></span></h3>
+                        let html = `<div class="car-status-pending ${id}" data-id="${id}">
+                                        <h3>This car is currently available for rent</h3>
+                                        <a href="#" class="btnCancelRent">Cancel</a>
                                     </div>`;
                         root.parent().html(html);
+                    }
+                },
+                error(err){
+                    console.log(err);
+                }
+            })
+        }
+    })
+
+    $(document).on('click','.btnConfirmRent', function (e) {
+        e.preventDefault();
+        const root = $(this).parent().parent();
+        const id = root.find('.btnRentCar').attr('data-id');
+        const end = root.find('.rent-date.end').val()
+        const parent = root.parent().parent().parent().parent();
+        const photo = parent.find('img').attr('src');
+        const brand = parent.find('h4 b').text().split(' ')[0];
+        const model = parent.find('h4 b').text().split(' ')[1];
+        const km = parent.find('.km').text();
+        const year = parent.find('.year').text();
+        const owner = parent.find('.owner').text();
+        const price = parent.find('.price').text();
+        const desc = parent.find('.desc').text();
+        let errors = false;
+
+        if(end == ''){
+            errors = true;
+            root.find('.date-errors').text('Please insert valid date').css({'color':'red'},{'font-weight':'bold'});
+        }
+        else{
+            root.find('.date-errors').text('');
+            if(new Date(end).getTime() < new Date().getTime()){
+                errors = true;
+                root.find('.date-errors').text('Until date can\'t be in past').css({'color':'red'},{'font-weight':'bold'});
+            }
+        }
+
+        if(!errors){
+            root.find('.date-errors').text('')
+            $.ajax({
+                type: 'post',
+                url: '/ajax/rentacar',
+                data: {id, end},
+                success(data){
+                    if(data === 'success'){
+                        let msg = `<h3><b>Car will be moved into rented section!</b></h3>`;
+                        root.parent().parent().html(msg);
+                        setTimeout(()=>{
+                            parent.remove();
+                        },1000);
+
+                        let html = `<div class="single-car">
+                            <div class="img-wrapper">
+                                <img src="${photo}" alt="${brand}" class="img-responsive">
+                            </div>
+                            <div class="info-wrapper-wrapper">
+                                <h4><b>${brand} ${model}</b></h4>
+                                <div class="info-wrapper">
+                                    <div class="car-info">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="info-row">
+                                                        Brand:
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="info-row">
+                                                        ${brand}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="info-row">
+                                                        Model:
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="info-row">
+                                                        ${model}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="info-row">
+                                                        Km passed:
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="info-row">
+                                                        ${km}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="info-row">
+                                                        Year of production:
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="info-row">
+                                                        ${year}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="info-row">
+                                                        Owner:
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="info-row">
+                                                        ${owner}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="info-row">
+                                                        Price per day:
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="info-row">
+                                                        ${price}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="info-row">
+                                            <i>${desc}</i>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="car-actions">
+                                            <div class="car-status-active ${id}" data-id="${id}">
+                                                <h3>This car is currently rented by</h3>
+                                                <h3>Expire date: <span class="expire-date">${end.replace('T',' ')}</span> </h3>
+                                                <h3>Time remaining: <span class="time-remaining"></span></h3>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+                        $('.cars-curr-rented').append(html);
                         timer(end, id);
                     }
                 },
@@ -283,8 +437,40 @@ $(document).ready( () => {
         }
     })
 
-    if($('.car-status').length > 0){
-        $('.car-status').each(function () {
+    $(document).on('click','.btnCancelRent',function (e) {
+        e.preventDefault();
+        let id = $(this).parent().attr('data-id');
+        let root = $(this).parent().parent();
+        $.ajax({
+            type: 'post',
+            url: '/ajax/removerent',
+            data: {id},
+            success(data){
+                let html = `
+                <div class="rent">
+                    <a href="#" class="btnAddCarToRent" data-id="${id}">Add this car for rent</a>
+                    <div class="car-links hideDates">
+                        <table class="dateTable">
+                            <tr>
+                                <td>Price per day: &euro;</td>
+                                <td><input type="number" class="form-control rent-price"></td>
+                            </tr>
+                        </table>
+                        <a href="#" class="SubmitToRent">Submit to rent</a>
+                        <span class="date-errors"></span>
+                    </div>
+                </div>
+                `
+                root.html(html);
+            },
+            error(err){
+                console.log(err);
+            }
+        })
+    })
+
+    if($('.car-status-active').length > 0){
+        $('.car-status-active').each(function () {
             let expire = $(this).find('.expire-date').text().trim().replace(" ", "T");
             let id = $(this).attr('data-id');
             timer(expire, id);
@@ -303,8 +489,11 @@ function timer(exp, id){
     let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     let seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-    console.log();
-    $(`.car-status.${id}`).find('.time-remaining').html(`${days}d, ${hours}:${minutes}:${seconds}`);
+    if(minutes < 10)
+        minutes = "0"+minutes
+    if(seconds < 10)
+        seconds = "0"+seconds;
+    $(`.car-status-active.${id}`).find('.time-remaining').html(`${days}d, ${hours}:${minutes}:${seconds}`);
     let a = setTimeout(function () {
         timer(exp, id);
     }, 1000);

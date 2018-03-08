@@ -22,18 +22,25 @@ class MyCarsController
     public function addForRent(Request $request){
         if($request->ajax()){
             $id_car = $request->get('id');
-            $start = $request->get('start');
-            $end = $request->get('end');
             $price = $request->get('price');
 
-            $id = Cars::addForRend($id_car, $start, $end, $price);
+            $id = Cars::addForRend($id_car, $price);
             if(!empty($id)){
                 return response('success');
             }
         }
     }
-    public function proba(){
-        $proba = Cars::proba();
-        dd($proba);
+
+    public function removeRent(Request $request){
+        if($request->ajax()){
+            $id_car = $request->get('id');
+
+            $res = Cars::removeRent($id_car);
+
+            if(!empty($res)){
+                return response($res);
+            }
+
+        }
     }
 }

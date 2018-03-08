@@ -94,7 +94,7 @@
                             </div>
                             <div class="clear"></div>
                             <div class="car-actions">
-                                @if(is_null($car->rentedCar) && is_null($car->auctionCar))
+                                @if(is_null($car->RentStatus))
                                     <div class="auction">
                                         <a href="#" class="btnAddCarToAuction" data-id="{{$car->id}}">Add this car to auction</a>
                                         <div class="car-links hideDates">
@@ -125,14 +125,6 @@
                                         <div class="car-links hideDates">
                                             <table class="dateTable">
                                                 <tr>
-                                                    <td>Start date:</td>
-                                                    <td><input type="datetime-local" class="form-control rent-date start"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>End date:</td>
-                                                    <td><input type="datetime-local" class="form-control rent-date end"></td>
-                                                </tr>
-                                                <tr>
                                                     <td>Price per day: &euro;</td>
                                                     <td><input type="number" class="form-control rent-price"></td>
                                                 </tr>
@@ -141,11 +133,16 @@
                                             <span class="date-errors"></span>
                                         </div>
                                     </div>
-                                @else
-                                    <div class="car-status {{$car->id}}" data-id="{{$car->id}}">
-                                        <h3>This car is currently {{is_null($car->rentedCar) ? "on auction" : "rented"}}</h3>
-                                        <h3>Expire date: <span class="expire-date">{{is_null($car->rentedCar) ? str_replace("T"," ",$car->AuctionEnd) : str_replace("T"," ",$car->RentEnd)}}</span> </h3>
+                                @elseif(!is_null($car->RentEnd))
+                                    <div class="car-status-active {{$car->id}}" data-id="{{$car->id}}">
+                                        <h3>This car is currently rented</h3>
+                                        <h3>Expire date: <span class="expire-date">{{str_replace("T"," ",$car->RentEnd)}}</span> </h3>
                                         <h3>Time remaining: <span class="time-remaining"></span></h3>
+                                    </div>
+                                @else
+                                    <div class="car-status-pending {{$car->id}}" data-id="{{$car->id}}">
+                                        <h3>This car is currently available for rent</h3>
+                                        <a href="#" class="btnCancelRent">Cancel</a>
                                     </div>
                                 @endif
                             </div>
@@ -156,12 +153,6 @@
         @endisset
 
     </div>
-
-        @if(session('success'))
-            <div class="alert alert-success login error" role="alert">
-                {{session('success')}}
-            </div>
-        @endif
 
         @isset($errors)
             @if($errors->any())
