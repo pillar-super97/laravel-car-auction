@@ -104,3 +104,7 @@
 .dateTable td{
     padding-bottom: 10px;
 }
+.disabled {
+    pointer-events: none;
+    cursor: default;
+}

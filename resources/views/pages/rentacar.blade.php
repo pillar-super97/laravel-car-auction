@@ -123,7 +123,7 @@
                                                 {{--</div>--}}
                                             {{--</div>--}}
                                             <div class="rent">
-                                                <a href="#" class="btnRentCar" data-id="{{$car->id}}">Rent this car</a>
+                                                <a href="#" class="btnRentCar {{ session()->has('user') ? session()->get('user')[0]->id == $car->user_id ? "disabled":"":"disabled"}}" data-id="{{$car->id}}">{{ session()->has('user') ? session()->get('user')[0]->id == $car->user_id ? "You can't rent own car":"Rent this car":"Please log in to rent"}}</a>
                                                 <div class="car-links hideDates">
                                                     <table class="dateTable">
                                                         <tr>
@@ -243,7 +243,7 @@
                                     <div class="clear"></div>
                                     <div class="car-actions">
                                             <div class="car-status-active {{$car->id}}" data-id="{{$car->id}}">
-                                                <h3>This car is currently rented by</h3>
+                                                <h3>This car is currently rented by {{$car->renter}}</h3>
                                                 <h3>Expire date: <span class="expire-date">{{str_replace("T"," ",$car->RentEnd)}}</span> </h3>
                                                 <h3>Time remaining: <span class="time-remaining"></span></h3>
                                             </div>

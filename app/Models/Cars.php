@@ -41,9 +41,18 @@ class Cars
             ->join("Users", "user_id", "=", "Users.id")
             ->leftJoin('Rent', 'Cars.id', '=', 'Rent.car_id')
             ->leftJoin('Licitation', 'Cars.id', '=', 'Licitation.car_id')
-            ->select("Cars.*", "Brand.name as brand", "Model.name as model", "Users.first_name as FirstName", "Users.last_name as LastName", "Rent.end_date as RentEnd", "Rent.car_id as rentedCar", "Licitation.status as AuctionStatus", "Licitation.car_id as auctionCar", "Licitation.end_time as AuctionEnd", "Rent.status as RentStatus", "Rent.price_per_day as price_per_day")
+            ->select("Cars.*", "Brand.name as brand", "Model.name as model", "Users.first_name as FirstName", "Users.last_name as LastName", "Rent.end_date as RentEnd", "Rent.car_id as rentedCar", "Licitation.status as AuctionStatus", "Licitation.car_id as auctionCar", "Licitation.end_time as AuctionEnd", "Rent.status as RentStatus", "Rent.price_per_day as price_per_day", "Rent.renter_id")
             ->whereNotNull('Rent.status')
             ->get();
+
+        foreach ($cars as $car){
+            if($car->renter_id > 0){
+                $renter = DB::table("Users")
+                    ->where("id", "=", $car->renter_id)
+                    ->get();
+                $car->renter = $renter[0]->first_name." ".$renter[0]->last_name;
+            }
+        }
         return $cars;
     }
 
