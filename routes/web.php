@@ -34,4 +34,5 @@ Route::group(['prefix' => '/ajax'], function (){
    Route::post('/addforrent', 'MyCarsController@addForRent');
    Route::post('/removerent', 'MyCarsController@removeRent');
    Route::post('/rentacar', 'RentACarController@rentACar');
+   Route::post('/rentfinished', 'RentACarController@rentFinished');
 });

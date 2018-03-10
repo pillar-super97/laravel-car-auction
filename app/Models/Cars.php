@@ -141,4 +141,18 @@ class Cars
             );
         return $res;
     }
+
+    public static function rentFinished($id){
+        $res = DB::table('Rent')
+            ->where('car_id', '=', $id)
+            ->where('status', '=', 'rented')
+            ->update(
+                [
+                    'renter_id' => 0,
+                    'end_date' => null,
+                    'status' => 'available'
+                ]
+            );
+        return $res;
+    }
 }

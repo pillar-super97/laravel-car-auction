@@ -328,104 +328,7 @@ $(document).ready( () => {
                         setTimeout(()=>{
                             parent.remove();
                         },1000);
-
-                        let html = `<div class="single-car">
-                            <div class="img-wrapper">
-                                <img src="${photo}" alt="${brand}" class="img-responsive">
-                            </div>
-                            <div class="info-wrapper-wrapper">
-                                <h4><b>${brand} ${model}</b></h4>
-                                <div class="info-wrapper">
-                                    <div class="car-info">
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <div class="info-row">
-                                                        Brand:
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="info-row">
-                                                        ${brand}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="info-row">
-                                                        Model:
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="info-row">
-                                                        ${model}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="info-row">
-                                                        Km passed:
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="info-row">
-                                                        ${km}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="info-row">
-                                                        Year of production:
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="info-row">
-                                                        ${year}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="info-row">
-                                                        Owner:
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="info-row">
-                                                        ${owner}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="info-row">
-                                                        Price per day:
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="info-row">
-                                                        ${price}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <div class="info-row">
-                                            <i>${desc}</i>
-                                        </div>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <div class="car-actions">
-                                            <div class="car-status-active ${id}" data-id="${id}">
-                                                <h3>This car is currently rented by</h3>
-                                                <h3>Expire date: <span class="expire-date">${end.replace('T',' ')}</span> </h3>
-                                                <h3>Time remaining: <span class="time-remaining"></span></h3>
-                                            </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>`;
+                        let html = car_templating(id, photo, brand, model, km, year, owner, price, desc, end, 'active');
                         $('.cars-curr-rented').append(html);
                         timer(end, id);
                     }
@@ -480,6 +383,17 @@ $(document).ready( () => {
 
 
 function timer(exp, id){
+
+    const root = $(`.single-car.${id}`);
+    const brand = root.find('.brand').text();
+    const model = root.find('.model').text();
+    const photo = root.find('img').attr('src');
+    const km = root.find('.km').text();
+    const year = root.find('.year').text();
+    const owner = root.find('.owner').text();
+    const desc = root.find('.desc').text();
+    const price = root.find('.price').text();
+
     let expire = new Date(exp).getTime();
     let now = new Date().getTime();
     let diff = expire - now;
@@ -497,7 +411,158 @@ function timer(exp, id){
     let a = setTimeout(function () {
         timer(exp, id);
     }, 1000);
-    if(diff < 1000){
+    if(diff < 500){
         clearTimeout(a)
+        $.ajax({
+            type: 'post',
+            url: '/ajax/rentfinished',
+            data: {id},
+            success(data){
+                console.log(data);
+                if(data === "success"){
+                    if($('.cars-avb-for-rent').length){
+                        let html = car_templating(id, photo, brand, model, km, year, owner, price, desc, 0, 'available');
+                        $('.cars-avb-for-rent').append(html);
+                        root.remove();
+                    }
+
+                    if($(`.car-actions.my-car.${id}`).length){
+                        let mycar_html = `<div class="car-status-pending ${id}" data-id="${id}">
+                                        <h3>This car is currently available for rent</h3>
+                                        <a href="#" class="btnCancelRent">Cancel</a>
+                                    </div>`;
+                        $(`.car-actions.my-car.${id}`).html(mycar_html);
+                    }
+
+                }
+            },
+            error(err){
+                console.log(err);
+            }
+        })
     }
+}
+
+function car_templating(id, img , brand, model, km, year, owner, price, desc, end, status) {
+    let html = `<div class="single-car ${id}">
+                            <div class="img-wrapper">
+                                <img src="${img}" alt="${brand}" class="img-responsive">
+                            </div>
+                            <div class="info-wrapper-wrapper">
+                                <h4><b>${brand} ${model}</b></h4>
+                                <div class="info-wrapper">
+                                    <div class="car-info">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="info-row">
+                                                        Brand:
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="info-row brand">
+                                                        ${brand}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="info-row">
+                                                        Model:
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="info-row model">
+                                                        ${model}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="info-row">
+                                                        Km passed:
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="info-row km">
+                                                        ${km}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="info-row">
+                                                        Year of production:
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="info-row year">
+                                                        ${year}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="info-row">
+                                                        Owner:
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="info-row owner">
+                                                        ${owner}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="info-row">
+                                                        Price per day:
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="info-row price">
+                                                        ${price}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="info-row desc">
+                                            <i>${desc}</i>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <div class="car-actions">
+                                        ${car_status(status, id, end)}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
+    return html;
+}
+
+function car_status(status, id, end) {
+    let html;
+    if(status === 'active'){
+        html = `<div class="car-status-active ${id}" data-id="${id}">
+                    <h3>This car is currently rented by</h3>
+                    <h3>Expire date: <span class="expire-date">${end.replace('T',' ')}</span> </h3>
+                    <h3>Time remaining: <span class="time-remaining"></span></h3>
+                </div>`
+    }
+    else{
+        html = `<div class="rent">
+                    <a href="#" class="btnRentCar" data-id="${id}">Rent this car</a>
+                    <div class="car-links hideDates">
+                        <table class="dateTable">
+                            <tr>
+                                <td>Until date:</td>
+                                <td><input type="datetime-local" class="form-control rent-date end"></td>
+                            </tr>
+                        </table>
+                        <a href="#" class="btnConfirmRent">Rent</a>
+                        <span class="date-errors"></span>
+                    </div>
+                </div>`
+    }
+    return html;
 }

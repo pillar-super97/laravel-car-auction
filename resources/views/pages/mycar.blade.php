@@ -93,7 +93,7 @@
                                 </div>
                             </div>
                             <div class="clear"></div>
-                            <div class="car-actions">
+                            <div class="car-actions my-car {{$car->id}}">
                                 @if(is_null($car->RentStatus))
                                     <div class="auction">
                                         <a href="#" class="btnAddCarToAuction" data-id="{{$car->id}}">Add this car to auction</a>

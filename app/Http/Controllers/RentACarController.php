@@ -39,4 +39,15 @@ class RentACarController
                 return response('success');
         }
     }
+
+    public function rentFinished(Request $request){
+        if($request->ajax()){
+            $id_car = $request->get('id');
+            $res = Cars::rentFinished($id_car);
+
+            if(!empty($res)){
+                return response('success');
+            }
+        }
+    }
 }

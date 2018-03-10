@@ -8,7 +8,7 @@
                 <h2>Cars available for rent</h2>
                 @foreach($cars as $car)
                     @if($car->RentStatus == "available")
-                        <div class="single-car">
+                        <div class="single-car {{$car->id}}">
                             <div class="img-wrapper">
                                 <img src="{{asset('/').$car->photo}}" alt="{{$car->brand}}" class="img-responsive">
                             </div>
@@ -154,7 +154,7 @@
                 <h2>Rented cars</h2>
                 @foreach($cars as $car)
                     @if($car->RentStatus == "rented")
-                        <div class="single-car">
+                        <div class="single-car {{$car->id}}">
                             <div class="img-wrapper">
                                 <img src="{{asset('/').$car->photo}}" alt="{{$car->brand}}" class="img-responsive">
                             </div>
@@ -170,7 +170,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="info-row">
+                                                    <div class="info-row brand">
                                                         {{$car->brand}}
                                                     </div>
                                                 </td>
@@ -182,7 +182,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="info-row">
+                                                    <div class="info-row model">
                                                         {{$car->model}}
                                                     </div>
                                                 </td>
@@ -194,7 +194,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="info-row">
+                                                    <div class="info-row km">
                                                         {{$car->km_passed}}
                                                     </div>
                                                 </td>
@@ -206,7 +206,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="info-row">
+                                                    <div class="info-row year">
                                                         {{$car->year}}
                                                     </div>
                                                 </td>
@@ -218,7 +218,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="info-row">
+                                                    <div class="info-row owner">
                                                         {{$car->FirstName." ".$car->LastName}}
                                                     </div>
                                                 </td>
@@ -230,13 +230,13 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="info-row">
+                                                    <div class="info-row price">
                                                         {{$car->price_per_day}} &euro;
                                                     </div>
                                                 </td>
                                             </tr>
                                         </table>
-                                        <div class="info-row">
+                                        <div class="info-row desc">
                                             <i>{{$car->description}}</i>
                                         </div>
                                     </div>
