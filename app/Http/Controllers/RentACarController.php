@@ -45,8 +45,12 @@ class RentACarController
             $id_car = $request->get('id');
             $res = Cars::rentFinished($id_car);
 
-            if(!empty($res)){
-                return response('success');
+            if(!is_null($res)){
+                return response()->json([
+                    'message' => 'success',
+                    'owner' => $res[0]->owner_id,
+                    'session' => session()->has('user') ? session()->get('user')[0]->id : null
+                ]);
             }
         }
     }

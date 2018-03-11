@@ -153,6 +153,12 @@ class Cars
                     'status' => 'available'
                 ]
             );
-        return $res;
+        $info = DB::table('Rent')
+            ->where('car_id', '=', $id)
+            ->get();
+        if(!empty($res))
+            return $info;
+        else
+            return null;
     }
 }

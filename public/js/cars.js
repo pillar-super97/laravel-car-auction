@@ -419,9 +419,9 @@ function timer(exp, id){
             data: {id},
             success(data){
                 console.log(data);
-                if(data === "success"){
+                if(data.message === "success"){
                     if($('.cars-avb-for-rent').length){
-                        let html = car_templating(id, photo, brand, model, km, year, owner, price, desc, 0, 'available');
+                        let html = car_templating(id, photo, brand, model, km, year, owner, price, desc, 0, 'available', data.session, data.owner);
                         $('.cars-avb-for-rent').append(html);
                         root.remove();
                     }
@@ -443,7 +443,7 @@ function timer(exp, id){
     }
 }
 
-function car_templating(id, img , brand, model, km, year, owner, price, desc, end, status) {
+function car_templating(id, img , brand, model, km, year, owner, price, desc, end, status, session, owner_id) {
     let html = `<div class="single-car ${id}">
                             <div class="img-wrapper">
                                 <img src="${img}" alt="${brand}" class="img-responsive">
@@ -532,7 +532,7 @@ function car_templating(id, img , brand, model, km, year, owner, price, desc, en
                                     </div>
                                     <div class="clear"></div>
                                     <div class="car-actions">
-                                        ${car_status(status, id, end)}
+                                        ${car_status(status, id, end, session, owner_id)}
                                     </div>
                                 </div>
                             </div>
@@ -540,7 +540,7 @@ function car_templating(id, img , brand, model, km, year, owner, price, desc, en
     return html;
 }
 
-function car_status(status, id, end) {
+function car_status(status, id, end, session, owner) {
     let html;
     if(status === 'active'){
         html = `<div class="car-status-active ${id}" data-id="${id}">
@@ -550,8 +550,26 @@ function car_status(status, id, end) {
                 </div>`
     }
     else{
+        let msg = '';
+        let disabled = '';
+        if(session === null){
+            console.log('usao u if')
+            msg = "Please log in to rent";
+            disabled = "disabled";
+        }
+        else{
+            console.log('usao u else')
+            if(session !== owner){
+                msg = "Rent this car";
+            }
+            else{
+                msg = "You can\'t rent own car";
+                disabled = "disabled";
+            }
+        }
+
         html = `<div class="rent">
-                    <a href="#" class="btnRentCar" data-id="${id}">Rent this car</a>
+                    <a href="#" class="btnRentCar ${disabled}" data-id="${id}">${msg}</a>
                     <div class="car-links hideDates">
                         <table class="dateTable">
                             <tr>
