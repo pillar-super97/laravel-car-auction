@@ -108,3 +108,49 @@
     pointer-events: none;
     cursor: default;
 }
+.admin-panel-wrapper {
+    margin-top: 70px;
+}
+.admin-panel-wrapper h1{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.admin-tabs{
+    font-size: 24px;
+}
+.admin-tabs:hover{
+    background-color: #C59E47;
+    color: #fff;
+    transition: all 0.5s;
+}
+.admin-tab-active{
+    background-color: #C59E47;
+    color: #fff;
+}
+.well{
+    background-color: #fff;
+}
+#tab1 h2{
+    text-align: center;
+}
+.links-wrapper{
+    display: flex;
+    flex-direction: row;
+}
+.paginate-link {
+    font-size:20px;
+    padding: 10px 20px 10px 20px;
+    border: 1px solid #C59E47;
+    margin-left: 20px;
+    color: brown;
+}
+.paginate-link-active{
+    background-color: #C59E47;
+    color: #fff;
+}
+.paginate-link:hover {
+    background-color: #C59E47;
+    color: #fff;
+    transition: all 0.5s;
+    text-decoration: none;
+}

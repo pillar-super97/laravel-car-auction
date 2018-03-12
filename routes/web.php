@@ -30,9 +30,19 @@ Route::group(['middleware' => 'checkAuth'], function (){
     Route::get('/auction', 'MyCarsController@proba');
 });
 
+Route::group(['middleware' => 'admin'], function (){
+    Route::get('/adminpanel', "AdminPanelController@render");
+});
+
 Route::group(['prefix' => '/ajax'], function (){
    Route::post('/addforrent', 'MyCarsController@addForRent');
    Route::post('/removerent', 'MyCarsController@removeRent');
    Route::post('/rentacar', 'RentACarController@rentACar');
    Route::post('/rentfinished', 'RentACarController@rentFinished');
+   Route::post('/updateuser', 'AdminPanelController@updateUser');
+   Route::post('/deleteuser', 'AdminPanelController@deleteUser');
+   Route::post('/paginate', 'AdminPanelController@paginateCars');
+   Route::post('/getbrands', 'AdminPanelController@getBrands');
+   Route::post('/updateCar', 'AdminPanelController@updateCar');
+   Route::post('/deleteCar', 'AdminPanelController@deleteCar');
 });

@@ -143,6 +143,30 @@ class User
         return $res;
     }
 
+    public static function getAll(){
+        $users = DB::table("Users")
+            ->get();
+        return $users;
+    }
 
+    public static function updateUser($id, $name, $lastname, $username, $email, $role){
+        $res = DB::table('Users')
+            ->where('id', '=', $id)
+            ->update([
+                'first_name' => $name,
+                'last_name' => $lastname,
+                'username' => $username,
+                'email' => $email,
+                'role' => $role
+            ]);
+        return $res;
+    }
+
+    public static function deleteUser($id){
+        $res = DB::table('Users')
+            ->where('id', '=', $id)
+            ->delete();
+        return $res;
+    }
 
 }

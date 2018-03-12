@@ -36,7 +36,10 @@ class RentACarController
             $res = Cars::rentACar($id_car, $user_id, $end);
 
             if(!empty($res))
-                return response('success');
+                return response()->json([
+                    'message' => 'success',
+                    'renter' => $res
+                ]);
         }
     }
 

@@ -139,7 +139,13 @@ class Cars
                     'status' => 'rented'
                 ]
             );
-        return $res;
+        if(!empty($res)){
+            $user = DB::table("Users")
+                ->where("id", '=', $user_id)
+                ->get();
+
+        }
+        return $user[0]->first_name." ".$user[0]->last_name;
     }
 
     public static function rentFinished($id){
@@ -160,5 +166,54 @@ class Cars
             return $info;
         else
             return null;
+    }
+
+    public static function getFiveCars($offset){
+        $cars = DB::table('Cars')
+            ->offset($offset*2-2)
+            ->limit(2)
+            ->join("Brand", "brand_id", "=", "Brand.id")
+            ->join("Model", "model_id", "=", "Model.id")
+            ->join("Users", "user_id", "=", "Users.id")
+            ->leftJoin('Rent', 'Cars.id', '=', 'Rent.car_id')
+            ->leftJoin('Licitation', 'Cars.id', '=', 'Licitation.car_id')
+            ->select("Cars.*", "Brand.name as brand", "Model.name as model", "Users.first_name as FirstName", "Users.last_name as LastName", "Rent.end_date as RentEnd", "Rent.car_id as rentedCar", "Licitation.status as AuctionStatus", "Licitation.car_id as auctionCar", "Licitation.end_time as AuctionEnd", "Rent.status as RentStatus")
+            ->get();
+
+        $num = DB::table('Cars')
+            ->count();
+
+        $cars[0]->num = $num;
+
+        return $cars;
+    }
+
+    public static function updateCar($id, $brand, $model, $price, $km, $year, $desc){
+        $res = DB::table('Cars')
+            ->where('id', '=', $id)
+            ->update(
+                [
+                    'brand_id' => $brand,
+                    'model_id' => $model,
+                    'price' => $price,
+                    'km_passed' => $km,
+                    'year' => $year,
+                    'description' => $desc
+                ]
+            );
+        return $res;
+    }
+
+    public static function deleteCar($id){
+        $a = DB::table('Rent')
+            ->where('car_id', '=', $id)
+            ->delete();
+
+        $res = DB::table('Cars')
+            ->where('id', '=', $id)
+            ->delete();
+
+
+        return $res;
     }
 }

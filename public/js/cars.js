@@ -79,7 +79,7 @@ $(document).ready( () => {
         const regNum = /^[0-9]{1,10}$/;
         const regExt = /^(jpe?g|png)$/;
 
-        if(isNaN(brand)){
+        if(isNaN(brand) || brand === ''){
             if(!regBrand.test(brand)){
                 errors = true;
                 $('.brand.error').text('Enter valid brand').css('color', 'red');
@@ -99,7 +99,7 @@ $(document).ready( () => {
             }
         }
 
-        if(isNaN(model)){
+        if(isNaN(model) || model === ''){
             if(!regModel.test(model)){
                 errors = true;
                 $('.model.error').text('Enter valid model').css('color', 'red');
@@ -212,7 +212,11 @@ $(document).ready( () => {
         }
         else{
             root.find('.car-links').addClass('hideDates')
-            $(this).text('Add this car to rent')
+            if($('.cars-avb-for-rent').length)
+                $(this).text('Rent this car')
+            else
+                $(this).text('Add this car to rent')
+
             root.find('.date-errors').text('')
             root.find('.rent-date.start').val(null);
             root.find('.rent-date.end').val(null);
@@ -313,6 +317,10 @@ $(document).ready( () => {
                 errors = true;
                 root.find('.date-errors').text('Until date can\'t be in past').css({'color':'red'},{'font-weight':'bold'});
             }
+            else if(new Date(end).getTime() < new Date().getTime() + 86400000) {
+                errors = true;
+                root.find('.date-errors').text('You can\'t rent a car for less than 24 hours').css({'color':'red'},{'font-weight':'bold'});
+            }
         }
 
         if(!errors){
@@ -322,13 +330,13 @@ $(document).ready( () => {
                 url: '/ajax/rentacar',
                 data: {id, end},
                 success(data){
-                    if(data === 'success'){
+                    if(data.message === 'success'){
                         let msg = `<h3><b>Car will be moved into rented section!</b></h3>`;
                         root.parent().parent().html(msg);
                         setTimeout(()=>{
                             parent.remove();
                         },1000);
-                        let html = car_templating(id, photo, brand, model, km, year, owner, price, desc, end, 'active');
+                        let html = car_templating(id, photo, brand, model, km, year, owner, price, desc, end, 'active', null, 0, data.renter);
                         $('.cars-curr-rented').append(html);
                         timer(end, id);
                     }
@@ -421,7 +429,7 @@ function timer(exp, id){
                 console.log(data);
                 if(data.message === "success"){
                     if($('.cars-avb-for-rent').length){
-                        let html = car_templating(id, photo, brand, model, km, year, owner, price, desc, 0, 'available', data.session, data.owner);
+                        let html = car_templating(id, photo, brand, model, km, year, owner, price, desc, 0, 'available', data.session, data.owner, "");
                         $('.cars-avb-for-rent').append(html);
                         root.remove();
                     }
@@ -443,7 +451,7 @@ function timer(exp, id){
     }
 }
 
-function car_templating(id, img , brand, model, km, year, owner, price, desc, end, status, session, owner_id) {
+function car_templating(id, img , brand, model, km, year, owner, price, desc, end, status, session, owner_id, renter) {
     let html = `<div class="single-car ${id}">
                             <div class="img-wrapper">
                                 <img src="${img}" alt="${brand}" class="img-responsive">
@@ -532,7 +540,7 @@ function car_templating(id, img , brand, model, km, year, owner, price, desc, en
                                     </div>
                                     <div class="clear"></div>
                                     <div class="car-actions">
-                                        ${car_status(status, id, end, session, owner_id)}
+                                        ${car_status(status, id, end, session, owner_id, renter)}
                                     </div>
                                 </div>
                             </div>
@@ -540,11 +548,11 @@ function car_templating(id, img , brand, model, km, year, owner, price, desc, en
     return html;
 }
 
-function car_status(status, id, end, session, owner) {
+function car_status(status, id, end, session, owner, renter) {
     let html;
     if(status === 'active'){
         html = `<div class="car-status-active ${id}" data-id="${id}">
-                    <h3>This car is currently rented by</h3>
+                    <h3>This car is currently rented by ${renter}</h3>
                     <h3>Expire date: <span class="expire-date">${end.replace('T',' ')}</span> </h3>
                     <h3>Time remaining: <span class="time-remaining"></span></h3>
                 </div>`
@@ -553,12 +561,10 @@ function car_status(status, id, end, session, owner) {
         let msg = '';
         let disabled = '';
         if(session === null){
-            console.log('usao u if')
             msg = "Please log in to rent";
             disabled = "disabled";
         }
         else{
-            console.log('usao u else')
             if(session !== owner){
                 msg = "Rent this car";
             }
