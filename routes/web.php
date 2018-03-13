@@ -21,6 +21,7 @@ Route::get('/register', 'AuthenticationController@renderRegister');
 Route::post('/register', 'AuthenticationController@register');
 Route::post('checkUsername', 'AuthenticationController@checkUsername');
 Route::get('/rent', 'RentACarController@render');
+Route::get('/contact', 'ContactController@render');
 
 Route::group(['middleware' => 'checkAuth'], function (){
     Route::get('/postcar', 'UploadCarsController@render');
@@ -49,5 +50,7 @@ Route::group(['prefix' => '/ajax'], function (){
    Route::post('/deleteBrands','AdminPanelController@deleteBrand');
    Route::post('/getmodels', 'AdminPanelController@getModels');
    Route::post('/insertmodel', 'AdminPanelController@insertModel');
-    Route::post('/deleteModels','AdminPanelController@deleteModels');
+   Route::post('/deleteModels','AdminPanelController@deleteModels');
+   Route::post('/getanswers', 'ContactController@getAnswers');
+   Route::post('/vote', 'ContactController@insertVote');
 });

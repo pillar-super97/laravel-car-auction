@@ -249,3 +249,11 @@ ul.brand-list li:hover{
 .selectable:hover{
     cursor: pointer;
 }
+.poll-form h1, h3{
+    text-align: center;
+}
+.poll-answers{
+    font-size: 20px;
+    min-height: 150px;
+    margin-bottom: 20px;
+}

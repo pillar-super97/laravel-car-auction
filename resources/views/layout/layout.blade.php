@@ -41,5 +41,6 @@
 <script type="text/javascript" src="{{asset('/')}}js/auth.js"></script>
 <script type="text/javascript" src="{{asset('/')}}js/cars.js"></script>
 <script type="text/javascript" src="{{asset('/')}}js/adminpanel.js"></script>
+<script type="text/javascript" src="{{asset('/')}}js/contact.js"></script>
 </body>
 </html>
