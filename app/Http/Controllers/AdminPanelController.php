@@ -22,8 +22,9 @@ class AdminPanelController
     public function render(){
         $users = User::getAll();
         $cars = Cars::getFiveCars(0);
+        $brands = Cars::getBrand();
 
-        return view('pages.adminpanel', ['users' => $users, 'cars' => $cars]);
+        return view('pages.adminpanel', ['users' => $users, 'cars' => $cars, 'brands' => $brands]);
     }
 
     public function updateUser(Request $request){
@@ -111,6 +112,77 @@ class AdminPanelController
             $res = Cars::deleteCar($id);
             if($res == 1)
                 return response('success');
+        }
+    }
+
+    public function insertBrand(Request $request){
+        if($request->ajax()){
+            $brand = $request->get('brand');
+            $id = Cars::insertNewBrand($brand);
+
+            if(!empty($id)){
+                return response()->json([
+                    'message' => 'success',
+                    'id' => $id
+                ]);
+            }
+        }
+    }
+
+    public function deleteBrand(Request $request){
+        if($request->ajax()){
+            $brands = $request->get('selected');
+            $res = Cars::deleteBrand($brands);
+
+            if($res > 0){
+                return response('success');
+            }
+        }
+    }
+
+    public function getModels(Request $request){
+        if($request->ajax()){
+            $brand = $request->get('id');
+            $res = Cars::getModelBrand($brand);
+
+            if(!empty($res)){
+                return response()->json([
+                    'message' => 'success',
+                    'models' => $res
+                ]);
+            }
+            else{
+                return response()->json([
+                    'message' => 'empty',
+                    'models' => null
+                ]);
+            }
+        }
+    }
+
+    public function insertModel(Request $request){
+        if($request->ajax()){
+            $brand = $request->get('brand');
+            $model = $request->get('model');
+            $id = Cars::insertNewModel($brand, $model);
+
+            if(!empty($id)){
+                return response()->json([
+                    'message' => 'success',
+                    'id' => $id
+                ]);
+            }
+        }
+    }
+
+    public function deleteModels(Request $request){
+        if($request->ajax()){
+            $models = $request->get('selected');
+            $res = Cars::deleteModels($models);
+
+            if($res > 0){
+                return response('success');
+            }
         }
     }
 }

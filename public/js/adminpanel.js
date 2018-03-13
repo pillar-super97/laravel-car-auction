@@ -428,6 +428,353 @@ $(document).ready(()=>{
         })
     })
 
+    $('.btnAddNewBrand').click( function(e) {
+        e.preventDefault();
+        if($('.tbNewBrand').hasClass('hide-elem')){
+            $('.tbNewBrand').removeClass('hide-elem')
+            $(this).text('Cancel');
+            $('.btnDeleteBrand').addClass('hide-elem')
+            $('.tbNewBrand').focus();
+        }
+        else{
+            $('.tbNewBrand').addClass('hide-elem')
+            $('.tbNewBrand').val('')
+            $(this).text('Add new brand');
+            $('.btnDeleteBrand').removeClass('hide-elem')
+        }
+    })
+    
+    $('.tbNewBrand').focus( function () {
+        let that = this;
+        $('.tbNewBrand').off().on('keypress', function (e) {
+            if(e.which === 13){
+                $(this).trigger('blur');
+                const brand = $('.tbNewBrand').val().trim()
+                const regBrand = /^[A-Z][a-z]{3,20}(\s[A-z][a-z]{1,20}){0,3}$/;
+                let error = false;
+                if(!regBrand.test(brand)){
+                    error = true;
+                    $('.brands-errors.add').removeClass('hide-elem').text('Enter valid brand name');
+                }
+
+                if(!error){
+                    $('.brands-errors.add').addClass('hide-elem').text('');
+                    $.ajax({
+                        type:'post',
+                        url:'/ajax/insertbrand',
+                        data: {brand},
+                        success(data){
+                            if(data.message === 'success'){
+                                let html = `<option value="${data.id}">${brand}</option>`
+                                $('#ddlBrands').append(html);
+                                $('.brands-success.add').removeClass('hide-elem').text('Successfully inserted');
+                                $('.tbNewBrand').val('')
+                                setTimeout(() => {
+                                    $('.brands-success.add').addClass('hide-elem').text('');
+                                }, 1000)
+                            }
+                        },
+                        error(err){
+                            console.log(err);
+                        }
+                    })
+                }
+            }
+        })
+    })
+
+    $(document).on('click','.btnDeleteBrand',function (e) {
+        e.preventDefault();
+        if($('.btnAddNewBrand').hasClass('hide-elem')){
+            $('.btnAddNewBrand').removeClass('hide-elem')
+            $(this).text('Delete brand');
+            $('.btnConfirmDelete').addClass('hide-elem')
+            $('.brands-errors.delete').addClass('hide-elem').text('')
+            $('.selected').addClass('hide-elem')
+            let list_arr = [];
+            $('ul.brand-list li').each(function () {
+                let value = $(this).attr('data-id');
+                let name = $(this).text().trim()
+                list_arr.push({value, name});
+            })
+            let html = `<select name="ddlBrands" id="ddlBrands" class="form-control">
+                            <option value="0">Choose...</option>`;
+            list_arr.map( li => {
+                html += `<option value="${li.value}">${li.name}</option>`;
+            })
+            html += `</select>`;
+            $('.brand-list-wrapper').html(html);
+        }
+        else {
+            $('.btnAddNewBrand').addClass('hide-elem')
+            $(this).text('Cancel');
+            $('.btnConfirmDelete').removeClass('hide-elem')
+            $('.selected').removeClass('hide-elem').find('b').text('0 rows selected')
+            $('.model-list-wrapper').html(`<h3>Choose brand to get his models</h3>`)
+            $('.model-links-wrapper').addClass('hide-elem');
+            let brands_array = [];
+
+            $('#ddlBrands option').each( function(i) {
+                if(i > 0){
+                    let value = $(this).attr('value');
+                    let name = $(this).text().trim();
+                    brands_array.push({value, name});
+                }
+            })
+
+            let html = ` <ul class="list-group brand-list">`;
+            brands_array.map( brand => {
+                html += `<li class="list-group-item brand" data-id="${brand.value}">${brand.name}</li>`;
+            })
+            html += `</ul>`;
+            $('.brand-list-wrapper').html(html);
+        }
+    })
+
+    $(document).on('click', 'ul.brand-list li',function () {
+        if($(this).hasClass('paginate-link-active')){
+            $(this).removeClass('paginate-link-active')
+        }
+        else {
+            $(this).addClass('paginate-link-active')
+        }
+        $('p.selected b').text(`${$('ul.brand-list').find('.paginate-link-active').length} rows selected`)
+    })
+
+    $(document).on('click','.btnConfirmDelete',function () {
+        let selected = [];
+        let error = false;
+        $('ul.brand-list .paginate-link-active').each(function () {
+            let id = $(this).attr('data-id');
+            selected.push(id);
+        })
+
+        if(selected.length === 0){
+            $('.brands-errors.delete').removeClass('hide-elem').text('No brand are choosen')
+            error = true;
+        }
+
+        if(!error){
+            $('.brands-errors.delete').addClass('hide-elem').text('')
+            $.ajax({
+                type:'post',
+                url:'/ajax/deleteBrands',
+                data:{selected},
+                success(data){
+                    if(data === 'success'){
+                        $('ul.brand-list .paginate-link-active').each(function () {
+                            $(this).remove();
+                        })
+                        $('p.selected b').text(`0 rows selected`)
+                    }
+                },
+                error(err){
+                    console.log(err);
+                }
+            })
+        }
+    })
+
+    $(document).on('change','#ddlBrands',function () {
+        const id = $(this).val();
+
+        if(id !== "0"){
+            $.ajax({
+                type:'post',
+                url:'/ajax/getmodels',
+                data:{id},
+                success(data){
+                    if(data.message === 'success'){
+                        if(data.models.length > 0){
+                            let html = `<ul class="list-group model-list"><div class="main-list">`;
+                            data.models.map(model => {
+                                html += `<li class="list-group-item model" data-id="${model.id}">${model.name}</li>`;
+                            })
+                            html += `</div>
+                                    <li class="list-group-item new-model hide-elem">
+                                        <input type="text" class="tbNewModel form-control" placeholder="New model">
+                                        <span class="model-errors add hide-elem"></span>
+                                    </li>
+                                </ul>`;
+                            $('.model-list-wrapper').html(html);
+                            $('.model-links-wrapper').removeClass('hide-elem');
+                        }
+                        else {
+                            let html = `<h3 class="heading">This brand doesn't have models yet</h3>
+<ul class="list-group model-list"><div class="main-list"></div>
+                                    <li class="list-group-item new-model hide-elem">
+                                        <input type="text" class="tbNewModel form-control" placeholder="New model">
+                                        <span class="model-errors add hide-elem"></span>
+                                    </li>
+                                </ul>`;
+                            $('.model-list-wrapper').html(html);
+                            $('.model-links-wrapper').removeClass('hide-elem');
+                        }
+                    }
+
+                },
+                error(err){
+                    console.log(err);
+                }
+            })
+        }
+        else {
+            $('.model-list-wrapper').html(`<h3>Choose brand to get his models</h3>`);
+            $('.model-links-wrapper').addClass('hide-elem');
+        }
+    })
+
+    $(document).on('click','.btnAddNewModel',function (e) {
+        e.preventDefault()
+        if($('.list-group-item.new-model').hasClass('hide-elem')){
+            $('.list-group-item.new-model').removeClass('hide-elem')
+            $(this).text('Cancel')
+            $('.tbNewModel').focus();
+            $('.btnDeleteModel').addClass('hide-elem');
+        }
+        else{
+            $('.list-group-item.new-model').addClass('hide-elem')
+            $(this).text('Add new model')
+            $('.tbNewModel').val('');
+            $('.btnDeleteModel').removeClass('hide-elem');
+        }
+    })
+
+    $(document).on('focus', '.tbNewModel', function () {
+        let that = this;
+        $('.tbNewModel').off().on('keypress', function (e) {
+            if(e.which === 13){
+                $(this).trigger('blur');
+                const model = $('.tbNewModel').val().trim()
+                const brand = $('#ddlBrands').val()
+                const regModel = /^[A-Za-z0-9]{3,20}(\s[A-za-z0-9]{1,20}){0,2}$/;
+                let error = false;
+                if(!regModel.test(model)){
+                    error = true;
+                    $(document).find('.model-errors.add').removeClass('hide-elem').text('Enter valid model name');
+                }
+
+                if(!error){
+                    $('.model-errors.add').addClass('hide-elem').text('');
+
+                    $.ajax({
+                        type:'post',
+                        url:'/ajax/insertmodel',
+                        data: {brand, model},
+                        success(data){
+                            if(data.message === 'success'){
+                                let html = `<li class="list-group-item model" data-id="${data.id}">${model}</li>`
+                                if($('ul .main-list li').length === 0){
+                                    $('h3.heading').remove();
+                                    console.log($('ul .main-list li').length)
+                                }
+                                $('ul .main-list').append(html);
+                                $('.list-group-item.new-model').addClass('hide-elem')
+                                $('.btnAddNewModel').text('Add new model')
+                                $('.tbNewModel').val('');
+                                $('.btnDeleteModel').removeClass('hide-elem');
+
+                            }
+                        },
+                        error(err){
+                            console.log(err);
+                        }
+                    })
+                }
+            }
+        })
+    })
+
+    $(document).on('click','.btnDeleteModel',function (e) {
+        e.preventDefault();
+        if($('ul .main-list li').length > 0){
+            $('.empty-list-error').addClass('hide-elem').text('');
+            if($('.btnAddNewModel').hasClass('hide-elem')){
+                $('.btnAddNewModel').removeClass('hide-elem')
+                $(this).text('Delete model')
+                $('.ConfirmDeleteModel').addClass('hide-elem')
+                $('ul .main-list li').each(function () {
+                    $(this).removeClass('selectable');
+                    if($(this).hasClass('paginate-link-active'))
+                        $(this).removeClass('paginate-link-active')
+                })
+            }
+            else{
+                $('.btnAddNewModel').addClass('hide-elem')
+                $(this).text('Cancel')
+                $('.ConfirmDeleteModel').removeClass('hide-elem')
+                $('ul .main-list li').each(function () {
+                    $(this).addClass('selectable');
+                })
+            }
+        }
+        else {
+            $('.empty-list-error').removeClass('hide-elem').text('Nothing to delete');
+        }
+    })
+
+    $(document).on('click', 'ul .main-list li', function () {
+        if($(this).hasClass('selectable')){
+            if($(this).hasClass('paginate-link-active')){
+                $(this).removeClass('paginate-link-active')
+            }
+            else {
+                $(this).addClass('paginate-link-active')
+            }
+        }
+    })
+
+    $(document).on('click', '.ConfirmDeleteModel', function (e) {
+        e.preventDefault();
+        let selected = [];
+        let error = false;
+        $(document).find('ul .main-list .paginate-link-active').each(function () {
+            let id = $(this).attr('data-id');
+            selected.push(id);
+        })
+
+        if(selected.length === 0){
+            error = true;
+            $('.empty-list-error').removeClass('hide-elem').text('Choose something');
+        }
+
+        if(!error){
+            $('.empty-list-error').addClass('hide-elem').text('')
+            $.ajax({
+                type:'post',
+                url:'/ajax/deleteModels',
+                data:{selected},
+                success(data){
+                    if(data === 'success'){
+                        $('ul .main-list .paginate-link-active').each(function () {
+                            $(this).remove();
+                        })
+                        $('.btnAddNewModel').removeClass('hide-elem')
+                        $('.btnDeleteModel').text('Delete model')
+                        $('.ConfirmDeleteModel').addClass('hide-elem')
+                        $('ul .main-list li').each(function () {
+                            $(this).removeClass('selectable');
+                        })
+                        if($('ul .main-list li').length === 0){
+                            let html = `<h3 class="heading">This brand doesn't have models yet</h3>
+<ul class="list-group model-list"><div class="main-list"></div>
+                                    <li class="list-group-item new-model hide-elem">
+                                        <input type="text" class="tbNewModel form-control" placeholder="New model">
+                                        <span class="model-errors add hide-elem"></span>
+                                    </li>
+                                </ul>`;
+                            $('.model-list-wrapper').html(html);
+                        }
+
+                    }
+                },
+                error(err){
+                    console.log(err);
+                }
+            })
+        }
+    })
+
 })
 
 

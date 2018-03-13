@@ -173,7 +173,43 @@
                     <h2>This is tab 2</h2>
                 </div>
                 <div class="tab-pane fade in" id="tab3">
-                    <h3>This is tab 3</h3>
+                    <h2>Car brands</h2>
+                    <div class="brands-models-wrapper">
+                        <div class="brands-wrapper">
+                            <div class="brand-link-wrapper">
+                                <a href="#" class="btnAddNewBrand">Add new brand</a>
+                                <input type="text" class="tbNewBrand form-control hide-elem" placeholder="New brand">
+                                <span class="brands-errors add hide-elem"></span>
+                                <span class="brands-success add hide-elem"></span>
+                                <a href="#" class="btnDeleteBrand">Delete brand</a>
+                                <a href="#" class="btnConfirmDelete hide-elem">Delete selected rows</a>
+                                <span class="brands-errors delete hide-elem"></span>
+                                <p class="selected hide-elem"><b></b></p>
+                            </div>
+                            <div class="brand-list-wrapper">
+                                @isset($brands)
+                                    <select name="ddlBrands" id="ddlBrands" class="form-control">
+                                        <option value="0">Choose...</option>
+                                        @foreach($brands as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                @endisset
+                            </div>
+                        </div>
+                        <div class="models-wrapper">
+                            <div class="model-list-wrapper">
+                                <h3>Choose brand to get his models</h3>
+
+                            </div>
+                            <div class="model-links-wrapper hide-elem">
+                                <a href="#" class="btnAddNewModel">Add new model</a>
+                                <a href="#" class="btnDeleteModel">Delete model</a>
+                                <a href="#" class="ConfirmDeleteModel hide-elem">Delete selected rows</a>
+                                <span class="empty-list-error hide-elem"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

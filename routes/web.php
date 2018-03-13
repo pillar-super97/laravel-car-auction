@@ -45,4 +45,9 @@ Route::group(['prefix' => '/ajax'], function (){
    Route::post('/getbrands', 'AdminPanelController@getBrands');
    Route::post('/updateCar', 'AdminPanelController@updateCar');
    Route::post('/deleteCar', 'AdminPanelController@deleteCar');
+   Route::post('/insertbrand', 'AdminPanelController@insertBrand');
+   Route::post('/deleteBrands','AdminPanelController@deleteBrand');
+   Route::post('/getmodels', 'AdminPanelController@getModels');
+   Route::post('/insertmodel', 'AdminPanelController@insertModel');
+    Route::post('/deleteModels','AdminPanelController@deleteModels');
 });

@@ -216,4 +216,23 @@ class Cars
 
         return $res;
     }
+
+    public static function deleteBrand($brands){
+        $a = DB::table('Model')
+            ->whereIn('brand_id', $brands)
+            ->delete();
+
+        $res = DB::table('Brand')
+            ->whereIn('id', $brands)
+            ->delete();
+        return $res;
+    }
+
+    public static function deleteModels($models){
+        $a = DB::table('Model')
+            ->whereIn('id', $models)
+            ->delete();
+
+        return $a;
+    }
 }
