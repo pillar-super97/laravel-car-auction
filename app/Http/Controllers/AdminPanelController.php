@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\Models\Cars;
+use App\Models\Polls;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -23,8 +24,9 @@ class AdminPanelController
         $users = User::getAll();
         $cars = Cars::getFiveCars(0);
         $brands = Cars::getBrand();
+        $polls = Polls::getAll();
 
-        return view('pages.adminpanel', ['users' => $users, 'cars' => $cars, 'brands' => $brands]);
+        return view('pages.adminpanel', ['users' => $users, 'cars' => $cars, 'brands' => $brands, 'polls' => $polls]);
     }
 
     public function updateUser(Request $request){

@@ -220,22 +220,7 @@
     width: 100%;
     margin: 20px 0px 0px 20px;
 }
-.hide-elem{
-    display: none;
-}
-.selected{
-    margin: 20px 0px 0px 20px;
-    color: red;
-}
-.brands-errors{
-    margin: 20px 0px 0px 20px;
-    color: red;
-}
-.model-errors{
-    margin: 20px 0px 0px 20px;
-    color: red;
-}
-.empty-list-error{
+.format-errors{
     margin: 20px 0px 0px 20px;
     color: red;
 }
@@ -256,4 +241,76 @@ ul.brand-list li:hover{
     font-size: 20px;
     min-height: 150px;
     margin-bottom: 20px;
+}
+.polls-answers-wrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    min-height: 400px;
+    flex-wrap: wrap;
+}
+.polls-answers-wrapper a{
+    border: 1px solid #C59E47;
+    padding: 10px;
+    font-size: 16px;
+    text-align: center;
+    color: black;
+    margin-bottom: 10px;
+    width: 30%;
+}
+.polls-answers-wrapper a:hover{
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    background-color: #C59E47;
+    text-decoration: none;
+    transition: all 0.5s;
+}
+.poll-wrapper{
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: row;
+    border-right: 1px solid #C59E47;
+}
+.poll-list-wrapper{
+    flex: 1 1 70%;
+    margin: 20px 20px 0px 40px;
+}
+.poll-link-wrapper{
+    flex: 1 1 20%;
+    display: flex;
+    flex-direction: column;
+}
+.poll-wrapper a{
+    width: 100%;
+    margin: 20px 0px 0px 20px;
+}
+.answers-wrapper{
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: row;
+}
+.answer-list-wrapper{
+    flex: 1 1 50%;
+    margin: 20px;
+}
+.answer-links-wrapper{
+    flex: 1 1 50%;
+    display: flex;
+    flex-direction: column;
+
+}
+.answers-wrapper a{
+    width: 60%;
+    margin: 20px 0px 0px 50px;
+}
+.tbNewPoll{
+    width: 100%;
+    margin: 20px 0px 0px 20px;
+}
+ul.poll-list li:hover{
+    cursor: pointer;
+}
+.hide-elem{
+    display: none;
 }

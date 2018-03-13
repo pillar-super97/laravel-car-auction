@@ -170,7 +170,43 @@
                     </div>
                 </div>
                 <div class="tab-pane fade in" id="tab2">
-                    <h2>This is tab 2</h2>
+                    <h2>Polls</h2>
+                    <div class="polls-answers-wrapper">
+                        <div class="poll-wrapper">
+                            <div class="poll-link-wrapper">
+                                <a href="#" class="btnAddNewPoll">Add new poll</a>
+                                <input type="text" class="tbNewPoll form-control hide-elem" placeholder="New poll">
+                                <span class="polls-errors format-errors add hide-elem"></span>
+                                <span class="polls-success add hide-elem"></span>
+                                <a href="#" class="btnDeletePoll">Delete poll</a>
+                                <a href="#" class="btnConfirmDeletePoll hide-elem">Delete selected rows</a>
+                                <span class="polls-errors delete format-errors hide-elem"></span>
+                                <p class="selected-polls format-errors hide-elem"><b></b></p>
+                            </div>
+                            <div class="poll-list-wrapper">
+                                @isset($polls)
+                                    <select name="ddlPolls" id="ddlPolls" class="form-control">
+                                        <option value="0">Choose...</option>
+                                        @foreach($polls as $poll)
+                                            <option value="{{$poll->id}}">{{$poll->question}}</option>
+                                        @endforeach
+                                    </select>
+                                @endisset
+                            </div>
+                        </div>
+                        <div class="answers-wrapper">
+                            <div class="answer-list-wrapper">
+                                <h3>Choose question to get answers</h3>
+
+                            </div>
+                            <div class="answer-links-wrapper hide-elem">
+                                <a href="#" class="btnAddNewAnswer">Add new answer</a>
+                                <a href="#" class="btnDeleteAnswer">Delete answer</a>
+                                <a href="#" class="ConfirmDeleteAnswer hide-elem">Delete selected rows</a>
+                                <span class="empty-list-error format-errors  hide-elem"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane fade in" id="tab3">
                     <h2>Car brands</h2>
@@ -179,12 +215,12 @@
                             <div class="brand-link-wrapper">
                                 <a href="#" class="btnAddNewBrand">Add new brand</a>
                                 <input type="text" class="tbNewBrand form-control hide-elem" placeholder="New brand">
-                                <span class="brands-errors add hide-elem"></span>
+                                <span class="brands-errors format-errors  add hide-elem"></span>
                                 <span class="brands-success add hide-elem"></span>
                                 <a href="#" class="btnDeleteBrand">Delete brand</a>
                                 <a href="#" class="btnConfirmDelete hide-elem">Delete selected rows</a>
-                                <span class="brands-errors delete hide-elem"></span>
-                                <p class="selected hide-elem"><b></b></p>
+                                <span class="brands-errors format-errors  delete hide-elem"></span>
+                                <p class="selected format-errors hide-elem"><b></b></p>
                             </div>
                             <div class="brand-list-wrapper">
                                 @isset($brands)
@@ -206,7 +242,7 @@
                                 <a href="#" class="btnAddNewModel">Add new model</a>
                                 <a href="#" class="btnDeleteModel">Delete model</a>
                                 <a href="#" class="ConfirmDeleteModel hide-elem">Delete selected rows</a>
-                                <span class="empty-list-error hide-elem"></span>
+                                <span class="empty-list-error format-errors  hide-elem"></span>
                             </div>
                         </div>
                     </div>

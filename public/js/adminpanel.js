@@ -541,7 +541,8 @@ $(document).ready(()=>{
         $('p.selected b').text(`${$('ul.brand-list').find('.paginate-link-active').length} rows selected`)
     })
 
-    $(document).on('click','.btnConfirmDelete',function () {
+    $(document).on('click','.btnConfirmDelete',function (e) {
+        e.preventDefault();
         let selected = [];
         let error = false;
         $('ul.brand-list .paginate-link-active').each(function () {
@@ -637,6 +638,7 @@ $(document).ready(()=>{
             $(this).text('Add new model')
             $('.tbNewModel').val('');
             $('.btnDeleteModel').removeClass('hide-elem');
+            $('.model-errors.add').addClass('hide-elem').text('');
         }
     })
 

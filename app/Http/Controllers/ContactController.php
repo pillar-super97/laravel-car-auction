@@ -20,7 +20,6 @@ class ContactController
 
     public function render(){
         $questions = Polls::getAllQuestions();
-        //dd(Polls::getResult(1));
 
         return view('pages.contact', ['questions' => $questions]);
     }
@@ -57,4 +56,58 @@ class ContactController
             }
         }
     }
+
+    public function insertPoll(Request $request){
+        if($request->ajax()){
+            $question = $request->get('poll');
+
+            $res = Polls::insertPoll($question);
+
+            if(!empty($res)){
+
+                return response()->json([
+                    'message' => 'success',
+                    'id' => $res
+                ]);
+            }
+        }
+    }
+
+    public function deletePoll(Request $request){
+        if($request->ajax()){
+            $polls = $request->get('selected');
+            $res = Polls::deletePoll($polls);
+
+            if($res > 0){
+                return response('success');
+            }
+        }
+    }
+
+    public function insertAnswer(Request $request){
+        if($request->ajax()){
+            $question = $request->get('question');
+            $answer = $request->get('answer');
+            $id = Polls::insertNewAnswer($question, $answer);
+
+            if(!empty($id)){
+                return response()->json([
+                    'message' => 'success',
+                    'id' => $id
+                ]);
+            }
+        }
+    }
+
+    public function deleteAnswers(Request $request){
+        if($request->ajax()){
+            $answers = $request->get('selected');
+            $res = Polls::deleteAnswers($answers);
+
+            if($res > 0){
+                return response('success');
+            }
+        }
+    }
+
 }

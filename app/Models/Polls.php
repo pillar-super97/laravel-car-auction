@@ -18,12 +18,22 @@ class Polls
     }
 
     public static function getAllQuestions(){
+
+        if(!session()->has('user'))
+            return null;
+
         $res = DB::table("Poll_question")
             ->whereNotIn('id', function ($query){
                 $query->select('question_id')
                     ->from('Poll_votes')
                     ->where('user_id', '=', session()->get('user')[0]->id);
             })
+            ->get();
+        return $res;
+    }
+
+    public static function getAll(){
+        $res = DB::table("Poll_question")
             ->get();
         return $res;
     }
@@ -53,5 +63,43 @@ class Polls
             ->groupBy('Poll_answer.id')
             ->get();
         return $res;
+    }
+
+    public static function insertPoll($question){
+        $id = DB::table("Poll_question")
+            ->insertGetId([
+                'question' => $question
+            ]);
+        return $id;
+    }
+
+    public static function deletePoll($polls){
+        $a = DB::table('Poll_answer')
+            ->whereIn('question_id', $polls)
+            ->delete();
+
+        $res = DB::table('Poll_question')
+            ->whereIn('id', $polls)
+            ->delete();
+        return $res;
+    }
+
+    public static function insertNewAnswer($question, $answer){
+        $id = DB::table("Poll_answer")
+            ->insertGetId(
+                [
+                    'question_id' => $question,
+                    'answer' => $answer
+                ]
+            );
+        return $id;
+    }
+
+    public static function deleteAnswers($answers){
+        $a = DB::table('Poll_answer')
+            ->whereIn('id', $answers)
+            ->delete();
+
+        return $a;
     }
 }
