@@ -256,4 +256,18 @@ class Cars
 
         return $cars;
     }
+
+    public static function getGallery(){
+        $res = DB::table('Gallery')
+            ->where('type', '=', 'gallery')
+            ->get();
+        return $res;
+    }
+
+    public static function getSlider(){
+        $res = DB::table('Gallery')
+            ->where('type', '=', 'slider')
+            ->get();
+        return $res;
+    }
 }

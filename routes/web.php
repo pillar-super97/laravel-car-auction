@@ -22,6 +22,9 @@ Route::post('/register', 'AuthenticationController@register');
 Route::post('checkUsername', 'AuthenticationController@checkUsername');
 Route::get('/rent', 'RentACarController@render');
 Route::get('/contact', 'ContactController@render');
+Route::get('/docs.pdf', function (){
+    return response()->file('/public/docs.pdf');
+});
 
 Route::group(['middleware' => 'checkAuth'], function (){
     Route::get('/postcar', 'UploadCarsController@render');
