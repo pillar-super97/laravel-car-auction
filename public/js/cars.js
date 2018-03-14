@@ -387,6 +387,24 @@ $(document).ready( () => {
             timer(expire, id);
         })
     }
+
+    $(document).on('click', '.btnEndRent', function (e) {
+        e.preventDefault();
+
+        let id = $(this).parent().attr('data-id')
+        let that = this;
+        $.ajax({
+            type:'post',
+            url:'/ajax/deleterent',
+            data:{id},
+            success(data){
+                $(that).parent().html('<h3>Rent has been canceled</h3>')
+            },
+            error(err){
+                console.log(err);
+            }
+        })
+    })
 })
 
 

@@ -27,8 +27,7 @@ class Cars
             ->join("Model", "model_id", "=", "Model.id")
             ->join("Users", "user_id", "=", "Users.id")
             ->leftJoin('Rent', 'Cars.id', '=', 'Rent.car_id')
-            ->leftJoin('Licitation', 'Cars.id', '=', 'Licitation.car_id')
-            ->select("Cars.*", "Brand.name as brand", "Model.name as model", "Users.first_name as FirstName", "Users.last_name as LastName", "Rent.end_date as RentEnd", "Rent.car_id as rentedCar", "Licitation.status as AuctionStatus", "Licitation.car_id as auctionCar", "Licitation.end_time as AuctionEnd", "Rent.status as RentStatus")
+            ->select("Cars.*", "Brand.name as brand", "Model.name as model", "Users.first_name as FirstName", "Users.last_name as LastName", "Rent.end_date as RentEnd", "Rent.car_id as rentedCar", "Rent.status as RentStatus")
             ->where('Cars.user_id', $id_u)
             ->get();
         return $cars;
@@ -40,8 +39,7 @@ class Cars
             ->join("Model", "model_id", "=", "Model.id")
             ->join("Users", "user_id", "=", "Users.id")
             ->leftJoin('Rent', 'Cars.id', '=', 'Rent.car_id')
-            ->leftJoin('Licitation', 'Cars.id', '=', 'Licitation.car_id')
-            ->select("Cars.*", "Brand.name as brand", "Model.name as model", "Users.first_name as FirstName", "Users.last_name as LastName", "Rent.end_date as RentEnd", "Rent.car_id as rentedCar", "Licitation.status as AuctionStatus", "Licitation.car_id as auctionCar", "Licitation.end_time as AuctionEnd", "Rent.status as RentStatus", "Rent.price_per_day as price_per_day", "Rent.renter_id")
+            ->select("Cars.*", "Brand.name as brand", "Model.name as model", "Users.first_name as FirstName", "Users.last_name as LastName", "Rent.end_date as RentEnd", "Rent.car_id as rentedCar", "Rent.status as RentStatus", "Rent.price_per_day as price_per_day", "Rent.renter_id")
             ->whereNotNull('Rent.status')
             ->get();
 
@@ -128,6 +126,16 @@ class Cars
         return $res;
     }
 
+    public static function cancelRent($id){
+        $res = DB::table('Rent')
+            ->where('car_id', '=', $id)
+            ->where('status', '=', 'rented')
+            ->update([
+                'status' => 'available'
+            ]);
+        return $res;
+    }
+
     public static function rentACar($car_id, $user_id, $end){
         $res = DB::table('Rent')
             ->where('car_id', '=', $car_id)
@@ -176,8 +184,7 @@ class Cars
             ->join("Model", "model_id", "=", "Model.id")
             ->join("Users", "user_id", "=", "Users.id")
             ->leftJoin('Rent', 'Cars.id', '=', 'Rent.car_id')
-            ->leftJoin('Licitation', 'Cars.id', '=', 'Licitation.car_id')
-            ->select("Cars.*", "Brand.name as brand", "Model.name as model", "Users.first_name as FirstName", "Users.last_name as LastName", "Rent.end_date as RentEnd", "Rent.car_id as rentedCar", "Licitation.status as AuctionStatus", "Licitation.car_id as auctionCar", "Licitation.end_time as AuctionEnd", "Rent.status as RentStatus")
+            ->select("Cars.*", "Brand.name as brand", "Model.name as model", "Users.first_name as FirstName", "Users.last_name as LastName", "Rent.end_date as RentEnd", "Rent.car_id as rentedCar", "Rent.status as RentStatus")
             ->get();
 
         $num = DB::table('Cars')
@@ -234,5 +241,19 @@ class Cars
             ->delete();
 
         return $a;
+    }
+
+    public static function getMyRentedCars(){
+        $cars = DB::table("Cars")
+            ->join("Brand", "brand_id", "=", "Brand.id")
+            ->join("Model", "model_id", "=", "Model.id")
+            ->join("Users", "user_id", "=", "Users.id")
+            ->leftJoin('Rent', 'Cars.id', '=', 'Rent.car_id')
+            ->select("Cars.*", "Brand.name as brand", "Model.name as model", "Users.first_name as FirstName", "Users.last_name as LastName", "Rent.end_date as RentEnd", "Rent.car_id as rentedCar", "Rent.status as RentStatus", "Rent.price_per_day as price_per_day", "Rent.renter_id")
+            ->where('Rent.status', '=', 'rented')
+            ->where('renter_id', '=', session()->get('user')[0]->id)
+            ->get();
+
+        return $cars;
     }
 }

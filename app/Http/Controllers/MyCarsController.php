@@ -43,4 +43,23 @@ class MyCarsController
 
         }
     }
+
+    public function cancelRent(Request $request){
+        if($request->ajax()){
+            $id_car = $request->get('id');
+
+            $res = Cars::cancelRent($id_car);
+
+            if(!empty($res)){
+                return response($res);
+            }
+
+        }
+    }
+
+    public function getRented(){
+        $cars = Cars::getMyRentedCars();
+
+        return view('pages.rented', ['cars' => $cars]);
+    }
 }

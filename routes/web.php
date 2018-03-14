@@ -28,7 +28,7 @@ Route::group(['middleware' => 'checkAuth'], function (){
     Route::post('/getmodel', 'UploadCarsController@getModel');
     Route::post('/postcar', 'UploadCarsController@uploadCar');
     Route::get('/mycars', 'MyCarsController@render');
-    Route::get('/auction', 'MyCarsController@proba');
+    Route::get('/rented', 'MyCarsController@getRented');
 });
 
 Route::group(['middleware' => 'admin'], function (){
@@ -58,4 +58,5 @@ Route::group(['prefix' => '/ajax'], function (){
    Route::post('/getanswers', 'ContactController@getAnswers');
    Route::post('/insertanswer', 'ContactController@insertAnswer');
    Route::post('/deleteAnswers','ContactController@deleteAnswers');
+   Route::post('/deleterent', 'MyCarsController@cancelRent');
 });

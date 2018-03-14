@@ -97,31 +97,6 @@
                                     <div class="clear"></div>
                                     <div class="car-actions">
                                         @if($car->RentStatus == "available")
-                                            {{--<div class="auction">--}}
-                                                {{--<a href="#" class="btnAddCarToAuction" data-id="{{$car->id}}">Add this car to auction</a>--}}
-                                                {{--<div class="car-links hideDates">--}}
-                                                    {{--<table class="dateTable">--}}
-                                                        {{--<tr>--}}
-                                                            {{--<td>Start date:</td>--}}
-                                                            {{--<td><input type="datetime-local" class="form-control rent-date start"></td>--}}
-                                                        {{--</tr>--}}
-                                                        {{--<tr>--}}
-                                                            {{--<td>End date:</td>--}}
-                                                            {{--<td><input type="datetime-local" class="form-control rent-date end"></td>--}}
-                                                        {{--</tr>--}}
-                                                        {{--<tr>--}}
-                                                            {{--<td>Start price: &euro;</td>--}}
-                                                            {{--<td><input type="number" class="form-control start-price"></td>--}}
-                                                        {{--</tr>--}}
-                                                        {{--<tr>--}}
-                                                            {{--<td>Bid rate: &euro;</td>--}}
-                                                            {{--<td><input type="number" class="form-control bid-rate"></td>--}}
-                                                        {{--</tr>--}}
-                                                    {{--</table>--}}
-                                                    {{--<a href="#" class="SubmitToAuction">Submit to auction</a>--}}
-                                                    {{--<span class="date-errors"></span>--}}
-                                                {{--</div>--}}
-                                            {{--</div>--}}
                                             <div class="rent">
                                                 <a href="#" class="btnRentCar {{ session()->has('user') ? session()->get('user')[0]->id == $car->user_id ? "disabled":"":"disabled"}}" data-id="{{$car->id}}">{{ session()->has('user') ? session()->get('user')[0]->id == $car->user_id ? "You can't rent own car":"Rent this car":"Please log in to rent"}}</a>
                                                 <div class="car-links hideDates">
@@ -255,16 +230,7 @@
                 @endforeach
             </div>
         @endisset
-
     </div>
-
-    @isset($errors)
-        @if($errors->any())
-            @foreach($errors->all() as $error)
-                {{ $error }}
-            @endforeach
-        @endif
-    @endisset
 
 
 @endsection

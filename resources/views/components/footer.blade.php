@@ -2,15 +2,16 @@
     <div class="bottomlogo">
         <span class="dotlogo">&bullet;</span><img src="{{asset('/')}}images/collectionlogo1.png" alt="logo1"><span class="dotlogo">&bullet;;</span>
     </div>
-    <ul class="nav nav-tabs bottomlinks">
-        <li role="presentation" ><a href="#/" role="button">ABOUT US</a></li>
-        <li role="presentation"><a href="#/">CATEGORIES</a></li>
-        <li role="presentation"><a href="#/">PREORDERS</a></li>
-        <li role="presentation"><a href="#/">CONTACT US</a></li>
-        <li role="presentation"><a href="#/">RECEIVE OUR NEWSLETTER</a></li>
-    </ul>
-    <p>"Lorem ipsum dolor sit amet, consectetur,  sed do eiusmod tempor incididunt <br>
-        eiusmod tempor incididunt </p>
+    {{--<ul class="nav nav-tabs bottomlinks">--}}
+        {{--<li role="presentation" ><a href="#/" role="button">ABOUT US</a></li>--}}
+        {{--<li role="presentation"><a href="#/">CATEGORIES</a></li>--}}
+        {{--<li role="presentation"><a href="#/">PREORDERS</a></li>--}}
+        {{--<li role="presentation"><a href="#/">CONTACT US</a></li>--}}
+        {{--<li role="presentation"><a href="#/">RECEIVE OUR NEWSLETTER</a></li>--}}
+    {{--</ul>--}}
+    <p style="font-size: 16px;">Disclaimer!<br>
+        I do not own most of the images posted here and it is not my intention to profit from this website in any way.
+        <br> This website is simply for educational purposes. All rights go to their respectful owners.</p>
     <img src="{{asset('/')}}images/line.png" alt="line"> <br>
     <div class="bottomsocial">
         <a href="#"><i class="fa fa-facebook"></i></a>

@@ -3,10 +3,10 @@
 @section("content")
 
     <div class="cars-wrapper">
-        <h2>My cars</h2>
+        <h2>My rents</h2>
         @isset($cars)
             @foreach($cars as $car)
-                <div class="single-car">
+                <div class="single-car rented">
                     <div class="img-wrapper">
                         <img src="{{asset('/').$car->photo}}" alt="{{$car->brand}}" class="img-responsive">
                     </div>
@@ -93,40 +93,23 @@
                                 </div>
                             </div>
                             <div class="clear"></div>
-                            <div class="car-actions my-car {{$car->id}}">
-                                @if(is_null($car->RentStatus))
-                                    <div class="rent">
-                                        <a href="#" class="btnAddCarToRent" data-id="{{$car->id}}">Add this car for rent</a>
-                                        <div class="car-links hideDates">
-                                            <table class="dateTable">
-                                                <tr>
-                                                    <td>Price per day: &euro;</td>
-                                                    <td><input type="number" class="form-control rent-price"></td>
-                                                </tr>
-                                            </table>
-                                            <a href="#" class="SubmitToRent">Submit to rent</a>
-                                            <span class="date-errors"></span>
-                                        </div>
-                                    </div>
-                                @elseif(!is_null($car->RentEnd))
+                            <div class="car-actions my-car {{$car->id}}" data-id="{{$car->id}}">
+                                @if(!is_null($car->RentEnd))
                                     <div class="car-status-active {{$car->id}}" data-id="{{$car->id}}">
-                                        <h3>This car is currently rented</h3>
                                         <h3>Expire date: <span class="expire-date">{{str_replace("T"," ",$car->RentEnd)}}</span> </h3>
                                         <h3>Time remaining: <span class="time-remaining"></span></h3>
                                     </div>
-                                @else
-                                    <div class="car-status-pending {{$car->id}}" data-id="{{$car->id}}">
-                                        <h3>This car is currently available for rent</h3>
-                                        <a href="#" class="btnCancelRent">Cancel</a>
-                                    </div>
                                 @endif
+                                    <a href="#" class="btnEndRent">Cancel rent</a>
                             </div>
                         </div>
                     </div>
                 </div>
             @endforeach
         @endisset
-
+        @empty($cars)
+            <h2>You haven't rented any cars yet</h2>
+        @endempty
     </div>
 
 @endsection
