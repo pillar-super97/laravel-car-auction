@@ -2,12 +2,13 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Scarica gratis GARAGE Template html/css - Web Domus Italia - Web Agency </title>
+    <title>Classic oldtimers | Rent</title>
     <meta name="description" content="Scarica gratis il nostro Template HTML/CSS GARAGE. Se avete bisogno di un design per il vostro sito web GARAGE può fare per voi. Web Domus Italia">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="author" content="Web Domus Italia">
+    <meta name="author" content="Stefan Jevtic">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('/')}}images/favicon.ico">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}js/bootstrap-3.3.6-dist/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}font-awesome-4.5.0/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/slider.css">
